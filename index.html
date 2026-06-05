@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universidad del Rímac — UR</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --crimson: #8B1A2B;
+  --crimson-dark: #5E0F1A;
+  --crimson-light: #B52237;
+  --gold: #C9A84C;
+  --gold-light: #E4C97A;
+  --gold-pale: #F5E9C6;
+  --royal-blue: #1B3A6B;
+  --blue-mid: #2A559A;
+  --blue-light: #4A7BC4;
+  --ivory: #FAF7F0;
+  --ivory-dark: #F0EBE0;
+  --dark: #1A1410;
+  --text: #2C2218;
+  --text-muted: #6B5B4E;
+  --white: #FFFFFF;
+  --shadow: 0 4px 32px rgba(26,20,16,0.12);
+  --shadow-lg: 0 16px 64px rgba(26,20,16,0.18);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--ivory);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ─── LOGIN OVERLAY ─── */
+#login-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--crimson-dark);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(27,58,107,0.15) 0%, transparent 50%);
+}
+.login-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 16px;
+  padding: 3rem 3.5rem;
+  width: 380px;
+  max-width: 90vw;
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+.login-seal {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+}
+.login-title {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--gold-light);
+  font-size: 22px; font-weight: 600;
+  margin-bottom: 4px;
+}
+.login-sub {
+  color: rgba(255,255,255,0.45);
+  font-size: 12px; font-weight: 300;
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.login-input {
+  width: 100%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  margin-bottom: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.login-input::placeholder { color: rgba(255,255,255,0.3); }
+.login-input:focus { border-color: var(--gold); }
+.login-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border: none; border-radius: 8px;
+  padding: 13px;
+  color: var(--crimson-dark);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 1px; text-transform: uppercase;
+  margin-top: 4px;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.login-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.login-error {
+  color: #FF8A8A; font-size: 12px; margin-top: 8px;
+  display: none;
+}
+
+/* ─── MAIN SITE (hidden until login) ─── */
+#site { display: none; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250,247,240,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(139,26,43,0.12);
+  padding: 0 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px;
+  transition: background 0.3s;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none;
+}
+.nav-seal {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1.5px solid var(--crimson);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px; font-weight: 700; color: var(--crimson);
+  letter-spacing: 1px;
+}
+.nav-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px; font-weight: 600; color: var(--crimson-dark);
+  line-height: 1.2;
+}
+.nav-name span { display: block; font-size: 11px; font-weight: 400; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Outfit', sans-serif; }
+.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-links a {
+  text-decoration: none; color: var(--text-muted);
+  font-size: 13.5px; font-weight: 500; letter-spacing: 0.3px;
+  transition: color 0.2s; position: relative; padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+  height: 1.5px; background: var(--crimson);
+  transform: scaleX(0); transition: transform 0.2s;
+}
+.nav-links a:hover { color: var(--crimson); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-cta {
+  background: var(--crimson); color: white !important;
+  padding: 8px 20px; border-radius: 6px;
+  font-size: 13px !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--crimson-dark) !important; color: white !important; }
+.nav-cta::after { display: none !important; }
+
+/* ─── HERO ─── */
+#inicio {
+  min-height: 100vh;
+  background: var(--crimson-dark);
+  background-image:
+    radial-gradient(ellipse at 0% 100%, rgba(27,58,107,0.4) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 0%, rgba(201,168,76,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(139,26,43,0.3) 0%, transparent 70%);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; position: relative; overflow: hidden;
+  padding: 100px 2rem 4rem;
+}
+.hero-bg-text {
+  position: absolute; font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(120px, 20vw, 240px); font-weight: 700;
+  color: rgba(201,168,76,0.04); letter-spacing: -5px;
+  pointer-events: none; user-select: none;
+  top: 50%; transform: translateY(-50%);
+  white-space: nowrap;
+}
+.hero-content { position: relative; z-index: 1; max-width: 860px; }
+.hero-badge {
+  display: inline-block;
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold-light); font-size: 11px;
+  letter-spacing: 3px; text-transform: uppercase; font-weight: 400;
+  padding: 6px 20px; border-radius: 20px; margin-bottom: 2rem;
+  background: rgba(201,168,76,0.06);
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(42px, 7vw, 80px);
+  font-weight: 600; color: white; line-height: 1.05;
+  margin-bottom: 1rem;
+}
+.hero-title em { color: var(--gold-light); font-style: italic; }
+.hero-lema {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-style: italic;
+  color: rgba(255,255,255,0.55); margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+.hero-desc {
+  font-size: 16px; font-weight: 300;
+  color: rgba(255,255,255,0.65); line-height: 1.8;
+  max-width: 620px; margin: 0 auto 2.5rem;
+}
+.hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--crimson-dark); border: none; border-radius: 8px;
+  padding: 14px 32px; font-size: 14px; font-weight: 600;
+  cursor: pointer; letter-spacing: 0.5px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none; display: inline-block;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
+.btn-outline {
+  background: transparent;
+  color: white; border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px; padding: 14px 32px;
+  font-size: 14px; font-weight: 400;
+  cursor: pointer; letter-spacing: 0.5px;
+  transition: border-color 0.2s, background 0.2s;
+  text-decoration: none; display: inline-block;
+}
+.btn-outline:hover { border-color: white; background: rgba(255,255,255,0.07); }
+.hero-stats {
+  display: flex; gap: 3rem; justify-content: center;
+  margin-top: 4rem; flex-wrap: wrap;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.hero-stat-n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px; font-weight: 600; color: var(--gold-light);
+  line-height: 1;
+}
+.hero-stat-l { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 4px; letter-spacing: 0.5px; }
+
+/* ─── SECTIONS GENERAL ─── */
+section { padding: 90px 0; }
+.container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+.section-label {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--crimson); font-weight: 500; margin-bottom: 10px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 4vw, 46px); font-weight: 600;
+  color: var(--crimson-dark); line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.section-sub {
+  font-size: 15px; color: var(--text-muted); font-weight: 300;
+  line-height: 1.7; max-width: 580px;
+}
+
+/* ─── ABOUT STRIP ─── */
+#about {
+  background: white;
+  border-top: 3px solid var(--gold);
+}
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.about-visual {
+  background: var(--crimson-dark);
+  border-radius: 16px; padding: 3rem 2.5rem;
+  text-align: center; position: relative; overflow: hidden;
+}
+.about-visual::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 70%, rgba(27,58,107,0.4), transparent 60%);
+}
+.about-seal-big {
+  width: 110px; height: 110px; border-radius: 50%;
+  border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 700; color: var(--gold);
+  margin: 0 auto 1.5rem; position: relative;
+}
+.about-visual h3 {
+  font-family: 'Cormorant Garamond', serif;
+  color: white; font-size: 24px; font-weight: 500;
+  margin-bottom: 6px; position: relative;
+}
+.about-visual p { color: rgba(255,255,255,0.5); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; position: relative; }
+.about-pillars { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+.pillar {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 1rem 1.2rem; background: var(--ivory);
+  border-radius: 10px; border-left: 3px solid var(--gold);
+}
+.pillar-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.pillar-title { font-size: 14px; font-weight: 600; color: var(--crimson-dark); margin-bottom: 2px; }
+.pillar-text { font-size: 13px; color: var(--text-muted); font-weight: 300; line-height: 1.5; }
+
+/* ─── PROGRAMAS ─── */
+#programas { background: var(--ivory); }
+.prog-tabs {
+  display: flex; gap: 0; margin-bottom: 3rem;
+  border-bottom: 2px solid var(--ivory-dark);
+}
+.prog-tab {
+  padding: 12px 28px; font-size: 14px; font-weight: 500;
+  color: var(--text-muted); cursor: pointer; border: none;
+  background: none; border-bottom: 2px solid transparent;
+  margin-bottom: -2px; transition: all 0.2s;
+  font-family: 'Outfit', sans-serif;
+}
+.prog-tab.active { color: var(--crimson); border-bottom-color: var(--crimson); }
+.prog-tab:hover { color: var(--crimson); }
+.prog-panel { display: none; }
+.prog-panel.active { display: block; }
+
+/* Facultades grid */
+.fac-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.fac-card {
+  background: white; border-radius: 12px;
+  border: 1px solid var(--ivory-dark);
+  overflow: hidden; transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.fac-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.fac-card-header {
+  padding: 1.1rem 1.3rem 0.8rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.fac-color-bar { width: 4px; height: 44px; border-radius: 2px; flex-shrink: 0; }
+.fac-card-name { font-size: 15px; font-weight: 600; color: var(--crimson-dark); line-height: 1.3; }
+.fac-card-count { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.fac-card-body { padding: 0 1.3rem 1.1rem; }
+.fac-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.fac-tag {
+  font-size: 11px; padding: 3px 9px; border-radius: 12px;
+  background: var(--ivory); color: var(--text-muted); font-weight: 400;
+}
+
+/* Posgrado grid */
+.postgrado-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.postgrado-section h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px; color: var(--crimson-dark); margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem; border-bottom: 1px solid var(--ivory-dark);
+}
+.postgrado-list { display: flex; flex-direction: column; gap: 10px; }
+.postgrado-item {
+  background: white; border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--ivory-dark);
+  border-left: 3px solid var(--royal-blue);
+  font-size: 13.5px; font-weight: 500; color: var(--text);
+  transition: border-left-color 0.2s;
+}
+.postgrado-item:hover { border-left-color: var(--crimson); }
+.postgrado-item span { display: block; font-size: 11px; color: var(--text-muted); font-weight: 300; margin-top: 2px; }
+
+/* ─── ADMISIÓN ─── */
+#admision { background: white; }
+.admision-intro {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+  margin-bottom: 4rem;
+}
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: flex; gap: 1.5rem; padding-bottom: 2rem;
+  position: relative;
+}
+.step:not(:last-child)::before {
+  content: ''; position: absolute; left: 19px; top: 42px;
+  width: 1px; bottom: 0;
+  background: var(--ivory-dark);
+}
+.step-num {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: var(--crimson); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600;
+}
+.step-title { font-size: 15px; font-weight: 600; color: var(--crimson-dark); margin-bottom: 4px; }
+.step-text { font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 300; }
+.admision-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.admision-card {
+  background: var(--ivory); border-radius: 12px;
+  padding: 1.5rem; border: 1px solid var(--ivory-dark);
+}
+.admision-card-icon { font-size: 28px; margin-bottom: 10px; }
+.admision-card-title { font-size: 14px; font-weight: 600; color: var(--crimson-dark); margin-bottom: 6px; }
+.admision-card-text { font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 300; }
+
+/* Requirements table */
+.req-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 3rem; }
+.req-card {
+  background: var(--ivory); border-radius: 12px; padding: 1.5rem;
+  border-top: 3px solid var(--crimson);
+  text-align: center;
+}
+.req-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--crimson-dark); margin-bottom: 0.75rem; }
+.req-card ul { list-style: none; }
+.req-card li { font-size: 13px; color: var(--text-muted); padding: 5px 0; border-bottom: 1px solid var(--ivory-dark); font-weight: 300; }
+.req-card li:last-child { border-bottom: none; }
+
+/* ─── FINANCIAMIENTO ─── */
+#financiamiento {
+  background: var(--crimson-dark);
+  background-image: radial-gradient(ellipse at 80% 100%, rgba(27,58,107,0.4), transparent 60%);
+}
+.fin-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 3rem; }
+.fin-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 14px; padding: 2rem;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s;
+}
+.fin-card:hover { border-color: rgba(201,168,76,0.5); }
+.fin-icon { font-size: 32px; margin-bottom: 1rem; }
+.fin-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold-light); margin-bottom: 0.75rem; }
+.fin-text { font-size: 13.5px; color: rgba(255,255,255,0.6); line-height: 1.7; font-weight: 300; }
+.fin-head-text { color: rgba(255,255,255,0.7); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--dark);
+  padding: 3.5rem 0 2rem;
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+.footer-brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; color: white; margin-bottom: 6px;
+}
+.footer-lema { font-size: 12px; color: rgba(255,255,255,0.35); font-style: italic; margin-bottom: 1rem; }
+.footer-about { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; font-weight: 300; }
+.footer-col h4 { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; font-weight: 500; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 8px; }
+.footer-col a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+.footer-col a:hover { color: var(--gold-light); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 1.5rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.25); }
+.footer-badge {
+  font-size: 11px; color: rgba(201,168,76,0.6);
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 4px 12px; border-radius: 20px; letter-spacing: 1px;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.25rem; }
+  .nav-links { display: none; }
+  .about-grid, .admision-intro, .postgrado-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .fin-grid, .req-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .admision-cards { grid-template-columns: 1fr; }
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-badge  { animation: fadeUp 0.6s ease both 0.1s; }
+.hero-title  { animation: fadeUp 0.6s ease both 0.25s; }
+.hero-lema   { animation: fadeUp 0.6s ease both 0.38s; }
+.hero-desc   { animation: fadeUp 0.6s ease both 0.48s; }
+.hero-btns   { animation: fadeUp 0.6s ease both 0.58s; }
+.hero-stats  { animation: fadeUp 0.6s ease both 0.72s; }
+
+/* divider */
+.gold-divider {
+  width: 60px; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  margin: 1rem 0 1.5rem;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ LOGIN ═══════════════════ -->
+<div id="login-overlay">
+  <div class="login-box">
+    <div class="login-seal">UR</div>
+    <div class="login-title">Universidad del Rímac</div>
+    <div class="login-sub">Portal Privado · Acceso Restringido</div>
+    <input class="login-input" type="text"     id="login-user" placeholder="Usuario" autocomplete="off">
+    <input class="login-input" type="password" id="login-pass" placeholder="Contraseña">
+    <button class="login-btn" onclick="checkLogin()">Ingresar</button>
+    <div class="login-error" id="login-error">Credenciales incorrectas. Intente nuevamente.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SITE ═══════════════════ -->
+<div id="site">
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#inicio">
+    <div class="nav-seal">UR</div>
+    <div class="nav-name">Universidad del Rímac <span>Lima, Perú · Est. 2050</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#inicio">Inicio</a>
+    <a href="#programas">Programas</a>
+    <a href="#admision">Admisión</a>
+    <a href="#financiamiento">Financiamiento</a>
+    <a href="#admision" class="nav-cta">Postular</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="inicio">
+  <div class="hero-bg-text">RÍMAC</div>
+  <div class="hero-content">
+    <div class="hero-badge">Lima, Perú · Est. 2050</div>
+    <h1 class="hero-title">Universidad<br>del <em>Rímac</em></h1>
+    <p class="hero-lema">Sapientia Veritas</p>
+    <p class="hero-desc">Una universidad de clase mundial comprometida con la excelencia académica, la investigación de frontera y el acceso al conocimiento para todos los peruanos.</p>
+    <div class="hero-btns">
+      <a href="#admision" class="btn-primary">Postular ahora</a>
+      <a href="#programas" class="btn-outline">Ver programas</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-n">46</div>
+        <div class="hero-stat-l">Carreras</div>
+      </div>
+      <div>
+        <div class="hero-stat-n">9</div>
+        <div class="hero-stat-l">Facultades</div>
+      </div>
+      <div>
+        <div class="hero-stat-n">4–6</div>
+        <div class="hero-stat-l">Años de estudio</div>
+      </div>
+      <div>
+        <div class="hero-stat-n">Top 10</div>
+        <div class="hero-stat-l">Referencias globales</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-seal-big">UR</div>
+        <h3>Universidad del Rímac</h3>
+        <p>Rimaq · Lima · Perú</p>
+      </div>
+      <div>
+        <div class="section-label">Nuestra misión</div>
+        <h2 class="section-title">Conocimiento al servicio del Perú y el mundo</h2>
+        <div class="gold-divider"></div>
+        <p class="section-sub" style="margin-bottom:1.75rem;">La Universidad del Rímac es una institución privada de bien público. Con aranceles equiparables a la educación pública y financiamiento sostenido por un fondo de inversión propio y alianzas estratégicas con la industria.</p>
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-icon">🎓</div>
+            <div>
+              <div class="pillar-title">Excelencia académica</div>
+              <div class="pillar-text">Modelo pedagógico inspirado en MIT, Harvard, ETH Zürich, Oxford y Cambridge. Bilingüe español–inglés.</div>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🔬</div>
+            <div>
+              <div class="pillar-title">Investigación de frontera</div>
+              <div class="pillar-text">Laboratorios de última generación. Publicaciones indexadas. Alianzas con las mejores universidades del mundo.</div>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🌎</div>
+            <div>
+              <div class="pillar-title">Impacto peruano</div>
+              <div class="pillar-text">Carreras diseñadas para los desafíos estratégicos del Perú: minería, salud pública, tecnología, biodiversidad y patrimonio.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROGRAMAS ═══ -->
+<section id="programas">
+  <div class="container">
+    <div class="section-label">Oferta académica</div>
+    <h2 class="section-title">Programas</h2>
+    <div class="gold-divider"></div>
+    <p class="section-sub" style="margin-bottom:2.5rem;">46 carreras organizadas en 9 facultades de excelencia, más programas de posgrado de clase mundial.</p>
+
+    <div class="prog-tabs">
+      <button class="prog-tab active" onclick="showTab('pregrado',this)">Pregrado</button>
+      <button class="prog-tab" onclick="showTab('maestria',this)">Maestrías</button>
+      <button class="prog-tab" onclick="showTab('doctorado',this)">Doctorados</button>
+    </div>
+
+    <!-- PREGRADO -->
+    <div class="prog-panel active" id="panel-pregrado">
+      <div class="fac-grid" id="fac-grid"></div>
+    </div>
+
+    <!-- MAESTRÍAS -->
+    <div class="prog-panel" id="panel-maestria">
+      <div class="postgrado-grid">
+        <div class="postgrado-section">
+          <h3>Maestrías en Ciencias e Ingeniería</h3>
+          <div class="postgrado-list">
+            <div class="postgrado-item">Maestría en Inteligencia Artificial<span>2 años · Inglés / Español</span></div>
+            <div class="postgrado-item">Maestría en Ingeniería de Datos<span>2 años · Inglés / Español</span></div>
+            <div class="postgrado-item">Maestría en Ingeniería Biomédica<span>2 años</span></div>
+            <div class="postgrado-item">Maestría en Ciencia de Materiales<span>2 años</span></div>
+            <div class="postgrado-item">Maestría en Ingeniería Ambiental<span>2 años</span></div>
+            <div class="postgrado-item">Maestría en Neurociencia<span>2 años</span></div>
+            <div class="postgrado-item">Maestría en Física Aplicada<span>2 años</span></div>
+            <div class="postgrado-item">Maestría en Matemáticas<span>2 años</span></div>
+          </div>
+        </div>
+        <div class="postgrado-section">
+          <h3>Maestrías en Humanidades y Negocios</h3>
+          <div class="postgrado-list">
+            <div class="postgrado-item">MBA — Master in Business Administration<span>2 años · Inglés</span></div>
+            <div class="postgrado-item">Maestría en Economía<span>2 años</span></div>
+            <div class="postgrado-item">Maestría en Finanzas<span>18 meses</span></div>
+            <div class="postgrado-item">Maestría en Políticas Públicas<span>2 años</span></div>
+            <div class="postgrado-item">Maestría en Relaciones Internacionales<span>2 años</span></div>
+            <div class="postgrado-item">Maestría en Derecho (LLM)<span>1 año · Inglés</span></div>
+            <div class="postgrado-item">Maestría en Salud Pública<span>2 años</span></div>
+            <div class="postgrado-item">Maestría en Educación<span>2 años</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCTORADOS -->
+    <div class="prog-panel" id="panel-doctorado">
+      <div class="postgrado-grid">
+        <div class="postgrado-section">
+          <h3>Doctorados en Ciencias e Ingeniería</h3>
+          <div class="postgrado-list">
+            <div class="postgrado-item">PhD en Ciencias de la Computación<span>4 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Ingeniería<span>4 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Física<span>4 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Química<span>4 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Biología Molecular<span>4 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Neurociencia<span>4–5 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Matemáticas<span>4 años · Financiado</span></div>
+          </div>
+        </div>
+        <div class="postgrado-section">
+          <h3>Doctorados en Humanidades y Sociales</h3>
+          <div class="postgrado-list">
+            <div class="postgrado-item">PhD en Economía<span>4–5 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Derecho (SJD)<span>3–4 años</span></div>
+            <div class="postgrado-item">PhD en Ciencias Políticas<span>4–5 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Psicología<span>4–5 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Lingüística<span>4 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Historia<span>4–5 años · Financiado</span></div>
+            <div class="postgrado-item">PhD en Ciencias de la Salud<span>4–5 años · Financiado</span></div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:2rem;font-size:13px;color:var(--text-muted);font-weight:300;">* Todos los programas doctorales incluyen financiamiento completo (arancel + estipendio mensual) para candidatos admitidos. Los estudiantes de doctorado contribuyen a la investigación institucional como parte de su formación.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ADMISIÓN ═══ -->
+<section id="admision">
+  <div class="container">
+    <div class="section-label">Proceso de postulación</div>
+    <h2 class="section-title">Admisión</h2>
+    <div class="gold-divider"></div>
+    <p class="section-sub" style="margin-bottom:3rem;">La selección en la UR es rigurosa y basada exclusivamente en el mérito académico. El costo de los estudios nunca será una barrera.</p>
+
+    <div class="admision-intro">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Registro en línea</div>
+            <div class="step-text">Crea tu cuenta en el portal UR y completa el formulario de postulación. Disponible en español e inglés.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Examen de admisión</div>
+            <div class="step-text">Prueba de aptitud académica en razonamiento matemático, verbal y científico. Dos convocatorias anuales: marzo y agosto.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Evaluación de expediente</div>
+            <div class="step-text">Revisión del historial académico, carta de motivación y cartas de recomendación. Para algunas carreras, entrevista personal.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Resultado y matrícula</div>
+            <div class="step-text">Notificación en 15 días hábiles. Los admitidos reciben automáticamente la evaluación socioeconómica para asignación de beca.</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="admision-cards">
+          <div class="admision-card">
+            <div class="admision-card-icon">💰</div>
+            <div class="admision-card-title">Arancel equiparable a universidades públicas</div>
+            <div class="admision-card-text">El costo anual nunca superará el equivalente a una universidad nacional peruana. Becas totales disponibles según situación económica.</div>
+          </div>
+          <div class="admision-card">
+            <div class="admision-card-icon">🌍</div>
+            <div class="admision-card-title">Bilingüe</div>
+            <div class="admision-card-text">Instrucción en español e inglés. Programa de nivelación de inglés incluido para todos los ingresantes.</div>
+          </div>
+          <div class="admision-card">
+            <div class="admision-card-icon">📅</div>
+            <div class="admision-card-title">Dos convocatorias anuales</div>
+            <div class="admision-card-text">Semestre I (inicio marzo) y Semestre II (inicio agosto). Postulaciones abiertas 3 meses antes de cada inicio.</div>
+          </div>
+          <div class="admision-card">
+            <div class="admision-card-icon">🏆</div>
+            <div class="admision-card-title">Solo mérito académico</div>
+            <div class="admision-card-text">El proceso de selección es exclusivamente académico. No existen cupos por convenio, pago diferenciado ni admisión preferencial.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="req-grid">
+      <div class="req-card">
+        <h4>Pregrado</h4>
+        <ul>
+          <li>Certificado de secundaria completa</li>
+          <li>DNI o pasaporte vigente</li>
+          <li>Examen de admisión UR</li>
+          <li>Carta de motivación</li>
+          <li>2 cartas de recomendación</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h4>Maestría</h4>
+        <ul>
+          <li>Título universitario de pregrado</li>
+          <li>Expediente académico oficial</li>
+          <li>Prueba de inglés (B2+)</li>
+          <li>Carta de motivación</li>
+          <li>3 cartas de recomendación</li>
+          <li>CV actualizado</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h4>Doctorado</h4>
+        <ul>
+          <li>Grado de maestría (o excepción)</li>
+          <li>Propuesta de investigación</li>
+          <li>Prueba de inglés (C1)</li>
+          <li>Entrevista con comité doctoral</li>
+          <li>3 cartas académicas</li>
+          <li>Publicaciones (valoradas)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINANCIAMIENTO ═══ -->
+<section id="financiamiento">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold);">Modelo de sostenibilidad</div>
+    <h2 class="section-title" style="color:white;">Financiamiento</h2>
+    <div class="gold-divider"></div>
+    <p class="section-sub fin-head-text">La UR opera bajo un modelo único en América Latina: institución privada con misión pública, financiada por tres fuentes complementarias que garantizan su autonomía e independencia académica.</p>
+    <div class="fin-grid">
+      <div class="fin-card">
+        <div class="fin-icon">🏛️</div>
+        <div class="fin-title">Fondo de Inversión UR</div>
+        <div class="fin-text">La universidad gestiona un endowment propio que invierte en mercados financieros, real estate y fondos de capital privado. Los rendimientos financian directamente becas, investigación e infraestructura — siguiendo el modelo de Harvard ($51B) y Yale.</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-icon">🤝</div>
+        <div class="fin-title">Alianzas Corporativas</div>
+        <div class="fin-text">Empresas líderes en minería, energía, tecnología, banca y salud cofinancian laboratorios, cátedras y centros de investigación a cambio de acceso prioritario a talento e investigación aplicada. La autonomía académica está protegida contractualmente.</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-icon">💡</div>
+        <div class="fin-title">Transferencia Tecnológica</div>
+        <div class="fin-text">Ingresos por patentes, licencias de tecnología y spin-offs generados por la investigación universitaria. Un porcentaje de toda comercialización retorna al fondo común de becas estudiantiles.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Universidad del Rímac</div>
+        <p class="footer-lema">Sapientia Veritas · Est. 2050</p>
+        <p class="footer-about">Campus único en el Rímac, Lima. Una universidad de excelencia, accesible para todos los peruanos con mérito y vocación de transformar el país y el mundo.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Académico</h4>
+        <ul>
+          <li><a href="#programas">Pregrado</a></li>
+          <li><a href="#programas">Maestrías</a></li>
+          <li><a href="#programas">Doctorados</a></li>
+          <li><a href="#admision">Admisión</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Institución</h4>
+        <ul>
+          <li><a href="#about">Misión y valores</a></li>
+          <li><a href="#financiamiento">Financiamiento</a></li>
+          <li><a href="#">Investigación</a></li>
+          <li><a href="#">Campus Rímac</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2050 Universidad del Rímac (UR) · Lima, Perú · Todos los derechos reservados</p>
+      <div class="footer-badge">Portal Privado · Acceso Autorizado</div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /site -->
+
+<script>
+// ─── LOGIN ───
+const CREDS = { user: "admin", pass: "rimac2050" };
+
+function checkLogin() {
+  const u = document.getElementById('login-user').value.trim();
+  const p = document.getElementById('login-pass').value.trim();
+  const err = document.getElementById('login-error');
+  if (u === CREDS.user && p === CREDS.pass) {
+    document.getElementById('login-overlay').style.display = 'none';
+    document.getElementById('site').style.display = 'block';
+    buildFacGrid();
+  } else {
+    err.style.display = 'block';
+    document.getElementById('login-pass').value = '';
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkLogin();
+});
+
+// ─── TABS ───
+function showTab(id, btn) {
+  document.querySelectorAll('.prog-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.prog-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─── FACULTADES DATA ───
+const FACULTADES = [
+  { nombre: "Ingeniería", color: "#378ADD",
+    carreras: ["Ing. Civil","Ing. Eléctrica","Ing. Mecánica","Ing. Mecatrónica","Ing. Electrónica","Ing. Industrial","Ing. de Minas","Ing. Naval","Ing. Aeroespacial","Ing. Biomédica","Ciencia de Materiales","Ing. Química","Ing. de Petróleo","Ing. Metalúrgica"] },
+  { nombre: "Computación & Tecnología", color: "#7F77DD",
+    carreras: ["Cs. de la Computación","Ing. de Sistemas","Informática","Ing. en IA","Ciencia de Datos"] },
+  { nombre: "Ciencias Básicas", color: "#EF9F27",
+    carreras: ["Matemática","Física","Química","Biología","Geología"] },
+  { nombre: "Ciencias de la Salud", color: "#1D9E75",
+    carreras: ["Medicina Humana (6 años)","Odontología","Enfermería","Nutrición","Medicina Veterinaria","Neurociencia"] },
+  { nombre: "Economía & Negocios", color: "#D85A30",
+    carreras: ["Economía","Administración","Contabilidad","Finanzas","Marketing"] },
+  { nombre: "Derecho & RR.II.", color: "#E24B4A",
+    carreras: ["Derecho","Cs. Políticas","Relaciones Internacionales"] },
+  { nombre: "Cs. Sociales & Humanidades", color: "#D4537E",
+    carreras: ["Psicología","Sociología","Geografía","Lingüística","Pedagogía"] },
+  { nombre: "Arquitectura & Urbanismo", color: "#888780",
+    carreras: ["Arquitectura","Urbanismo"] },
+];
+
+function buildFacGrid() {
+  const grid = document.getElementById('fac-grid');
+  grid.innerHTML = FACULTADES.map(f => `
+    <div class="fac-card">
+      <div class="fac-card-header">
+        <div class="fac-color-bar" style="background:${f.color}"></div>
+        <div>
+          <div class="fac-card-name">${f.nombre}</div>
+          <div class="fac-card-count">${f.carreras.length} carrera${f.carreras.length>1?'s':''} · 4 años${f.nombre==='Ciencias de la Salud'?' (Medicina 6 años)':''}</div>
+        </div>
+      </div>
+      <div class="fac-card-body">
+        <div class="fac-tags">
+          ${f.carreras.map(c=>`<span class="fac-tag">${c}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+</script>
+</body>
+</html>
