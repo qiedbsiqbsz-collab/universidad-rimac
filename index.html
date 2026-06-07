@@ -46,6 +46,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,248,244,
 .nav-cta{background:var(--navy)!important;color:white!important;padding:8px 18px!important;border-radius:6px!important;}
 .nav-cta::after{display:none!important;}
 .nav-cta:hover{background:var(--navy-dark)!important;opacity:1!important;}
+/* DROPDOWN */
+.nav-dropdown{position:relative;}
+.nav-dropdown-btn{background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--text-muted);display:flex;align-items:center;gap:5px;padding-bottom:2px;transition:color .2s;position:relative;}
+.nav-dropdown-btn::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1.5px;background:var(--navy);transform:scaleX(0);transition:transform .2s;}
+.nav-dropdown:hover .nav-dropdown-btn{color:var(--navy);}
+.nav-dropdown:hover .nav-dropdown-btn::after{transform:scaleX(1);}
+.nav-dropdown-btn svg{width:12px;height:12px;transition:transform .2s;}
+.nav-dropdown:hover .nav-dropdown-btn svg{transform:rotate(180deg);}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%);background:white;border:1px solid var(--ivory-dark);border-radius:12px;padding:8px;min-width:200px;box-shadow:0 12px 40px rgba(17,24,32,.12);opacity:0;visibility:hidden;transition:opacity .2s,transform .2s,visibility .2s;transform:translateX(-50%) translateY(-6px);z-index:200;}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+.nav-dropdown-menu::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:12px;height:12px;background:white;border-left:1px solid var(--ivory-dark);border-top:1px solid var(--ivory-dark);transform:translateX(-50%) rotate(45deg);}
+.dropdown-item{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:none;background:none;border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--text);text-align:left;transition:background .15s,color .15s;}
+.dropdown-item:hover{background:var(--ivory);color:var(--navy);}
+.dropdown-item-icon{font-size:16px;width:24px;text-align:center;}
+.dropdown-item-label{flex:1;}
+.dropdown-divider{height:1px;background:var(--ivory-dark);margin:4px 0;}
 
 /* PAGES */
 .page{display:none;padding-top:68px;min-height:100vh;animation:fadeIn .35s ease;}
@@ -253,6 +269,10 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
   nav{padding:0 1rem;}
   .nav-links{gap:.6rem;}
   .nav-link{font-size:11px;}
+  .nav-dropdown-btn{font-size:11px;}
+  .nav-dropdown-menu{left:0;transform:translateX(0) translateY(0);min-width:180px;}
+  .nav-dropdown:hover .nav-dropdown-menu{transform:translateX(0) translateY(0);}
+  .nav-dropdown-menu::before{left:24px;}
   .pillars-grid,.ruta-grid,.info-grid,.three-grid,.tray-compare,.stats-items,.postgrado-grid,.footer-grid,.carrera-info-row{grid-template-columns:1fr;}
   .ruta-grid{grid-template-columns:1fr 1fr;}
 }
@@ -284,12 +304,40 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
   </div>
   <div class="nav-links">
     <button class="nav-link" data-page="inicio" onclick="goTo('inicio')">Inicio</button>
-    <button class="nav-link" data-page="inicial" onclick="goTo('inicial')">Inicial</button>
-    <button class="nav-link" data-page="primaria" onclick="goTo('primaria')">Primaria</button>
-    <button class="nav-link" data-page="secundaria" onclick="goTo('secundaria')">Secundaria</button>
-    <button class="nav-link" data-page="instituto" onclick="goTo('instituto')">Instituto</button>
-    <button class="nav-link" data-page="universidad" onclick="goTo('universidad')">Universidad</button>
-    <button class="nav-link nav-cta" onclick="goTo('secundaria')">Postular</button>
+
+    <!-- PROGRAMAS DROPDOWN -->
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">
+        Programas
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="nav-dropdown-menu">
+        <button class="dropdown-item" onclick="goTo('inicial')">
+          <span class="dropdown-item-icon">🌱</span>
+          <span class="dropdown-item-label">Inicial</span>
+        </button>
+        <button class="dropdown-item" onclick="goTo('primaria')">
+          <span class="dropdown-item-icon">📚</span>
+          <span class="dropdown-item-label">Primaria</span>
+        </button>
+        <button class="dropdown-item" onclick="goTo('secundaria')">
+          <span class="dropdown-item-icon">🎓</span>
+          <span class="dropdown-item-label">Secundaria</span>
+        </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" onclick="goTo('instituto')">
+          <span class="dropdown-item-icon">🔧</span>
+          <span class="dropdown-item-label">Instituto</span>
+        </button>
+        <button class="dropdown-item" onclick="goTo('universidad')">
+          <span class="dropdown-item-icon">🏛️</span>
+          <span class="dropdown-item-label">Universidad</span>
+        </button>
+      </div>
+    </div>
+
+    <button class="nav-link" data-page="intranet" onclick="goTo('intranet')">Intranet</button>
+    <button class="nav-link nav-cta" data-page="admision" onclick="goTo('admision')">Admisión</button>
   </div>
 </nav>
 
@@ -841,9 +889,405 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
   </div><div class="footer-bottom"><p>© S.E. Privado · Lima, Perú · Proyecto en desarrollo</p><div class="footer-badge">Portal Privado · Acceso Autorizado</div></div></div></footer>
 </div>
 
+<!-- ═══════════════════ INTRANET LOGIN ═══════════════════ -->
+<div class="page" id="page-intranet">
+  <div class="page-hero dark" style="background-image:radial-gradient(ellipse at 60% 80%,rgba(14,110,107,.3),transparent 55%);">
+    <div class="container">
+      <div class="section-label" style="color:var(--gold)">Acceso interno</div>
+      <h1>Intranet Institucional</h1>
+      <p>Portal exclusivo para estudiantes, docentes y personal administrativo. Ingresa con tu código institucional y contraseña asignados.</p>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="container">
+      <div style="max-width:440px;margin:0 auto;padding:1rem 0 3rem;">
+        <div style="background:white;border-radius:16px;border:1px solid var(--ivory-dark);padding:2.5rem;box-shadow:0 8px 32px rgba(17,24,32,.08);">
+          <div style="text-align:center;margin-bottom:1.75rem;">
+            <div style="font-size:44px;margin-bottom:.75rem;">🔐</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--navy-dark);font-weight:600;margin-bottom:4px;">Acceso al Portal</div>
+            <div style="font-size:12px;color:var(--text-muted);letter-spacing:1px;">SISTEMA EDUCATIVO PRIVADO</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">CÓDIGO INSTITUCIONAL</label>
+            <input id="intra-codigo" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;" type="text" placeholder="Ej: 10•••••••••••" autocomplete="off" oninput="this.style.borderColor='var(--ivory-dark)'">
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">CONTRASEÑA</label>
+            <input id="intra-pass" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;" type="password" placeholder="Contraseña" onkeydown="if(event.key==='Enter')intraLogin()">
+          </div>
+          <div id="intra-error" style="display:none;background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:14px;text-align:center;">Código o contraseña incorrectos.</div>
+          <button onclick="intraLogin()" style="width:100%;background:linear-gradient(135deg,var(--navy),var(--navy-mid));border:none;border-radius:8px;padding:13px;color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.5px;transition:opacity .2s;">Ingresar</button>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:1.25rem;text-align:center;font-weight:300;">¿Olvidaste tu contraseña? Contacta a secretaría académica.</p>
+        </div>
+        <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;">
+          <div style="background:rgba(15,42,74,.05);border-radius:10px;padding:1rem .75rem;border:1px solid rgba(15,42,74,.1);">
+            <div style="font-size:20px;margin-bottom:4px;">🎓</div>
+            <div style="font-size:11px;font-weight:500;color:var(--navy);margin-bottom:2px;">Estudiantes</div>
+            <div style="font-size:11px;color:var(--text-muted);font-weight:300;">Código 10•••</div>
+          </div>
+          <div style="background:rgba(14,110,107,.05);border-radius:10px;padding:1rem .75rem;border:1px solid rgba(14,110,107,.15);">
+            <div style="font-size:20px;margin-bottom:4px;">👨‍🏫</div>
+            <div style="font-size:11px;font-weight:500;color:var(--teal);margin-bottom:2px;">Docentes</div>
+            <div style="font-size:11px;color:var(--text-muted);font-weight:300;">Código 20•••</div>
+          </div>
+          <div style="background:rgba(201,168,76,.06);border-radius:10px;padding:1rem .75rem;border:1px solid rgba(201,168,76,.2);">
+            <div style="font-size:20px;margin-bottom:4px;">⚙️</div>
+            <div style="font-size:11px;font-weight:500;color:#7A5200;margin-bottom:2px;">Administrativos</div>
+            <div style="font-size:11px;color:var(--text-muted);font-weight:300;">Código 30•••</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="container"><div class="footer-grid">
+    <div><div class="footer-brand">S.E. Privado</div><p class="footer-lema">Mérito · Disciplina · Futuro</p></div>
+    <div class="footer-col"><h4>Accesos</h4><ul><li><a onclick="goTo('intranet')">Intranet</a></li><li><a onclick="goTo('admision')">Admisión</a></li></ul></div>
+    <div class="footer-col"><h4>Programas</h4><ul><li><a onclick="goTo('inicial')">Inicial</a></li><li><a onclick="goTo('primaria')">Primaria</a></li><li><a onclick="goTo('secundaria')">Secundaria</a></li></ul></div>
+  </div><div class="footer-bottom"><p>© S.E. Privado · Lima, Perú</p><div class="footer-badge">Portal Privado</div></div></div></footer>
+</div>
+
+<!-- ═══════════════════ PORTAL ESTUDIANTE ═══════════════════ -->
+<div class="page" id="page-portal-estudiante">
+  <div style="background:var(--navy-dark);padding:0;position:sticky;top:68px;z-index:50;border-bottom:1px solid rgba(255,255,255,.08);">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:18px;">🎓</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:17px;color:white;font-weight:600;">Portal del Estudiante</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1px;padding-left:12px;border-left:1px solid rgba(255,255,255,.12);">SISTEMA EDUCATIVO PRIVADO</span>
+      </div>
+      <button onclick="goTo('intranet')" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:6px 14px;color:rgba(255,255,255,.6);font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;transition:all .2s;">Cerrar sesión</button>
+    </div>
+  </div>
+  <div style="background:var(--navy-dark);padding:3rem 0 2.5rem;background-image:radial-gradient(ellipse at 80% 50%,rgba(15,42,74,.8),transparent 60%);">
+    <div class="container">
+      <div style="font-size:12px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem;">Bienvenido</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);color:white;font-weight:600;margin-bottom:.5rem;">Panel del Estudiante</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.5);font-weight:300;">Año académico en curso · Acceso a tus registros académicos</div>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:2.5rem;">
+        <div class="mini-card" style="text-align:center;border-top-color:var(--navy);cursor:pointer;" onclick="alert('Módulo de cursos en construcción — disponible próximamente')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📚</div>
+          <div class="mini-card-title">Mis cursos</div>
+          <div class="mini-card-text">Cursos matriculados, materiales y contenidos del año en curso.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#C9A84C;cursor:pointer;" onclick="alert('Módulo de calificaciones en construcción — disponible próximamente')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📊</div>
+          <div class="mini-card-title">Calificaciones</div>
+          <div class="mini-card-text">Notas por curso, ponderado acumulado y ranking de sección.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:var(--teal);cursor:pointer;" onclick="alert('Módulo de horarios en construcción — disponible próximamente')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📅</div>
+          <div class="mini-card-title">Horario</div>
+          <div class="mini-card-text">Horario semanal de clases. Lunes a sábado, 8:00 am — 5:00 pm.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#7F77DD;cursor:pointer;" onclick="alert('Módulo de docentes en construcción — disponible próximamente')">
+          <div style="font-size:32px;margin-bottom:.5rem;">👨‍🏫</div>
+          <div class="mini-card-title">Mis profesores</div>
+          <div class="mini-card-text">Directorio de docentes asignados a tus cursos y sus horarios de atención.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#D85A30;cursor:pointer;" onclick="alert('Módulo de asistencia en construcción — disponible próximamente')">
+          <div style="font-size:32px;margin-bottom:.5rem;">✅</div>
+          <div class="mini-card-title">Asistencia</div>
+          <div class="mini-card-text">Registro de asistencia por curso y alertas de inasistencias.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#B91C1C;cursor:pointer;" onclick="alert('Módulo de comunicados en construcción — disponible próximamente')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📢</div>
+          <div class="mini-card-title">Comunicados</div>
+          <div class="mini-card-text">Avisos institucionales, circulares y notificaciones del sistema.</div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <h3>Módulos en desarrollo</h3>
+        <p>El portal del estudiante está en construcción. Próximamente podrás consultar tus calificaciones en tiempo real, ver tu posición en el ranking acumulado de meritocracia, descargar tu horario semanal, revisar tu historial de penalizaciones y comunicarte con tus docentes. Todos los módulos estarán disponibles al inicio del año académico.</p>
+      </div>
+    </div>
+  </div>
+  <footer><div class="container"><div class="footer-grid">
+    <div><div class="footer-brand">S.E. Privado</div><p class="footer-lema">Mérito · Disciplina · Futuro</p></div>
+    <div class="footer-col"><h4>Mi portal</h4><ul><li><a onclick="goTo('portal-estudiante')">Inicio</a></li><li><a onclick="goTo('intranet')">Cerrar sesión</a></li></ul></div>
+    <div class="footer-col"><h4>Sistema</h4><ul><li><a onclick="goTo('inicio')">Web institucional</a></li></ul></div>
+  </div><div class="footer-bottom"><p>© S.E. Privado · Portal Estudiante</p><div class="footer-badge">Sesión activa</div></div></div></footer>
+</div>
+
+<!-- ═══════════════════ PORTAL DOCENTE ═══════════════════ -->
+<div class="page" id="page-portal-docente">
+  <div style="background:var(--teal);padding:0;position:sticky;top:68px;z-index:50;border-bottom:1px solid rgba(255,255,255,.1);">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:18px;">👨‍🏫</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:17px;color:white;font-weight:600;">Portal del Docente</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;padding-left:12px;border-left:1px solid rgba(255,255,255,.15);">SISTEMA EDUCATIVO PRIVADO</span>
+      </div>
+      <button onclick="goTo('intranet')" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:6px 14px;color:rgba(255,255,255,.7);font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;">Cerrar sesión</button>
+    </div>
+  </div>
+  <div style="background:var(--teal);padding:3rem 0 2.5rem;background-image:radial-gradient(ellipse at 20% 80%,rgba(8,60,58,.6),transparent 55%);">
+    <div class="container">
+      <div style="font-size:12px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem;">Bienvenido</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);color:white;font-weight:600;margin-bottom:.5rem;">Panel del Docente</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.55);font-weight:300;">Año académico en curso · Gestión de cursos y registro académico</div>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:2.5rem;">
+        <div class="mini-card" style="text-align:center;border-top-color:var(--teal);cursor:pointer;" onclick="alert('Módulo de cursos en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📋</div>
+          <div class="mini-card-title">Cursos que imparto</div>
+          <div class="mini-card-text">Lista de cursos asignados, secciones, aulas y horarios.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:var(--navy);cursor:pointer;" onclick="alert('Módulo de registro de notas en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">✏️</div>
+          <div class="mini-card-title">Registro de notas</div>
+          <div class="mini-card-text">Ingreso y gestión de calificaciones con hasta 5 decimales.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#C9A84C;cursor:pointer;" onclick="alert('Módulo de horarios en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📅</div>
+          <div class="mini-card-title">Mi horario</div>
+          <div class="mini-card-text">Horario semanal de clases. Lunes a sábado, 8:00 am — 5:00 pm.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#7F77DD;cursor:pointer;" onclick="alert('Módulo de estudiantes en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">👥</div>
+          <div class="mini-card-title">Mis estudiantes</div>
+          <div class="mini-card-text">Lista de alumnos por curso, asistencia y seguimiento académico.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#D85A30;cursor:pointer;" onclick="alert('Módulo de planificación en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📝</div>
+          <div class="mini-card-title">Planificación</div>
+          <div class="mini-card-text">Sesiones de aprendizaje, unidades didácticas y materiales.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#B91C1C;cursor:pointer;" onclick="alert('Módulo de comunicados en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📢</div>
+          <div class="mini-card-title">Comunicados</div>
+          <div class="mini-card-text">Avisos institucionales y comunicaciones del área administrativa.</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="background:rgba(14,110,107,.15);border:1px solid rgba(14,110,107,.3);">
+        <h3 style="color:#4FC3A1;">Módulos en desarrollo</h3>
+        <p>El portal del docente está en construcción. Próximamente podrás registrar calificaciones en tiempo real con el sistema de hasta 5 decimales, gestionar la asistencia de tus secciones, cargar materiales por curso y recibir alertas de alumnos en riesgo académico según las reglas del sistema de penalizaciones.</p>
+      </div>
+    </div>
+  </div>
+  <footer><div class="container"><div class="footer-grid">
+    <div><div class="footer-brand">S.E. Privado</div><p class="footer-lema">Mérito · Disciplina · Futuro</p></div>
+    <div class="footer-col"><h4>Mi portal</h4><ul><li><a onclick="goTo('portal-docente')">Inicio</a></li><li><a onclick="goTo('intranet')">Cerrar sesión</a></li></ul></div>
+    <div class="footer-col"><h4>Sistema</h4><ul><li><a onclick="goTo('inicio')">Web institucional</a></li></ul></div>
+  </div><div class="footer-bottom"><p>© S.E. Privado · Portal Docente</p><div class="footer-badge">Sesión activa</div></div></div></footer>
+</div>
+
+<!-- ═══════════════════ PORTAL SIGA ═══════════════════ -->
+<div class="page" id="page-portal-siga">
+  <div style="background:linear-gradient(135deg,#7A5200,#C9A84C);padding:0;position:sticky;top:68px;z-index:50;border-bottom:1px solid rgba(255,255,255,.1);">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:18px;">⚙️</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:17px;color:white;font-weight:600;">SIGA</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.5);letter-spacing:1px;padding-left:12px;border-left:1px solid rgba(255,255,255,.2);">SISTEMA INTEGRAL DE GESTIÓN ACADÉMICA</span>
+      </div>
+      <button onclick="goTo('intranet')" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:6px;padding:6px 14px;color:white;font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;">Cerrar sesión</button>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,var(--navy-dark) 0%,#3D2600 100%);padding:3rem 0 2.5rem;">
+    <div class="container">
+      <div style="font-size:11px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:.5rem;">Acceso administrativo</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,50px);color:white;font-weight:600;margin-bottom:.4rem;">SIGA</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold-light);font-style:italic;margin-bottom:.5rem;">Sistema Integral de Gestión Académica</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.45);font-weight:300;">Panel de administración institucional · Acceso restringido al personal autorizado</div>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:2.5rem;">
+        <div class="mini-card" style="text-align:center;border-top-color:var(--gold);cursor:pointer;" onclick="alert('Módulo de matrícula en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📋</div>
+          <div class="mini-card-title">Gestión de matrículas</div>
+          <div class="mini-card-text">Registro, edición y control de matrículas por nivel y sección.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:var(--navy);cursor:pointer;" onclick="alert('Módulo de nómina docente en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">👨‍🏫</div>
+          <div class="mini-card-title">Nómina docente</div>
+          <div class="mini-card-text">Registro de docentes, asignación de cursos y carga horaria.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:var(--teal);cursor:pointer;" onclick="alert('Módulo de rankings en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">🏆</div>
+          <div class="mini-card-title">Rankings y meritocracia</div>
+          <div class="mini-card-text">Visualización del ranking global, por sección y acumulados BI.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#D85A30;cursor:pointer;" onclick="alert('Módulo de penalizaciones en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">⚠️</div>
+          <div class="mini-card-title">Penalizaciones</div>
+          <div class="mini-card-text">Registro y aplicación de penalizaciones tipo A, B y C por alumno.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#B91C1C;cursor:pointer;" onclick="alert('Módulo de sanciones en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">🚫</div>
+          <div class="mini-card-title">Sanciones y bajas</div>
+          <div class="mini-card-text">Gestión de sanciones, retiros y bajas definitivas de la institución.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#7F77DD;cursor:pointer;" onclick="alert('Módulo de reportes en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📊</div>
+          <div class="mini-card-title">Reportes académicos</div>
+          <div class="mini-card-text">Informes por nivel, sección, curso y período académico.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#1D9E75;cursor:pointer;" onclick="alert('Módulo de calendario en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">📆</div>
+          <div class="mini-card-title">Calendario académico</div>
+          <div class="mini-card-text">Gestión del calendario: 36 semanas, vacaciones y períodos.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;border-top-color:#C9A84C;cursor:pointer;" onclick="alert('Módulo IELTS en construcción')">
+          <div style="font-size:32px;margin-bottom:.5rem;">🌍</div>
+          <div class="mini-card-title">Certificación IELTS</div>
+          <div class="mini-card-text">Seguimiento del nivel de inglés por alumno y registro de certificados C1.</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);">
+        <h3>SIGA — En desarrollo</h3>
+        <p>El Sistema Integral de Gestión Académica está en construcción. Será la herramienta central para administrar los 192 alumnos por promoción, las 8 secciones, los rankings de meritocracia con hasta 5 decimales, el sistema de penalizaciones tipo A/B/C, la bifurcación BI-oficio al finalizar el tercer año, y el seguimiento del certificado IELTS C1 como requisito de egreso.</p>
+      </div>
+    </div>
+  </div>
+  <footer><div class="container"><div class="footer-grid">
+    <div><div class="footer-brand">SIGA · S.E. Privado</div><p class="footer-lema">Sistema Integral de Gestión Académica</p></div>
+    <div class="footer-col"><h4>SIGA</h4><ul><li><a onclick="goTo('portal-siga')">Panel principal</a></li><li><a onclick="goTo('intranet')">Cerrar sesión</a></li></ul></div>
+    <div class="footer-col"><h4>Sistema</h4><ul><li><a onclick="goTo('inicio')">Web institucional</a></li></ul></div>
+  </div><div class="footer-bottom"><p>© S.E. Privado · SIGA · Acceso administrativo</p><div class="footer-badge">Sesión SIGA activa</div></div></div></footer>
+</div>
+
+<!-- ═══════════════════ ADMISIÓN ═══════════════════ -->
+<div class="page" id="page-admision">
+  <div class="page-hero dark" style="background-image:radial-gradient(ellipse at 20% 80%,rgba(201,168,76,.12),transparent 55%);">
+    <div class="container">
+      <div class="section-label" style="color:var(--gold)">Proceso de postulación</div>
+      <h1>Admisión</h1>
+      <p>Selección basada en meritocracia. El desempeño académico acumulado es el único criterio que determina el acceso al Bachillerato Internacional. Convocatoria anual para todos los niveles.</p>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="container">
+
+      <!-- PROCESO -->
+      <div class="section-label">Proceso</div>
+      <h2 class="section-title" style="margin-bottom:1.5rem;">Pasos para postular</h2>
+      <div class="merito-steps">
+        <div class="merito-step">
+          <div class="merito-num">1</div>
+          <div>
+            <div class="merito-title">Postulación en línea</div>
+            <div class="merito-text">Completa el formulario de postulación para el nivel deseado: inicial, primaria o secundaria. La postulación está disponible durante el período de admisión anual. Adjunta los documentos requeridos según el nivel.</div>
+          </div>
+        </div>
+        <div class="merito-step">
+          <div class="merito-num">2</div>
+          <div>
+            <div class="merito-title">Evaluación de ingreso</div>
+            <div class="merito-text">Prueba de aptitud académica según el nivel postulado. Para ingreso a secundaria externa se evalúa el rendimiento equivalente a los 6 años de primaria del sistema. Los alumnos provenientes de primaria interna ingresan por ranking acumulado.</div>
+          </div>
+        </div>
+        <div class="merito-step">
+          <div class="merito-num">3</div>
+          <div>
+            <div class="merito-title">Resultados y matrícula</div>
+            <div class="merito-text">Publicación de resultados en el portal institucional. Los admitidos tienen un plazo de 10 días hábiles para confirmar matrícula y presentar documentación completa. La matrícula se formaliza con la firma del compromiso de cumplimiento del reglamento.</div>
+          </div>
+        </div>
+        <div class="merito-step">
+          <div class="merito-num">4</div>
+          <div>
+            <div class="merito-title">Inducción institucional</div>
+            <div class="merito-text">Semana de inducción previa al inicio de clases. Se presenta el sistema de meritocracia, el reglamento, el sistema de penalizaciones y las oportunidades disponibles según desempeño. Los padres también participan en una sesión informativa.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REQUISITOS -->
+      <div class="section-label" style="margin-top:3rem;">Documentación</div>
+      <h2 class="section-title" style="margin-bottom:1.5rem;">Requisitos por nivel</h2>
+      <div class="three-grid">
+        <div class="mini-card" style="border-top-color:var(--teal);">
+          <div class="mini-card-title">🌱 Inicial (3–5 años)</div>
+          <div class="mini-card-text">Partida de nacimiento · DNI del menor (si aplica) · DNI de padres o tutores · Ficha de matrícula completa · Evaluación psicopedagógica · Carnet de vacunación al día</div>
+        </div>
+        <div class="mini-card" style="border-top-color:#3B82F6;">
+          <div class="mini-card-title">📚 Primaria (6–11 años)</div>
+          <div class="mini-card-text">Libreta de notas del año anterior · DNI del estudiante · DNI de padres o tutores · Evaluación de ingreso institucional · Certificado de estudios previos · Carta de compromiso familiar</div>
+        </div>
+        <div class="mini-card" style="border-top-color:var(--gold);">
+          <div class="mini-card-title">🎓 Secundaria (12–16 años)</div>
+          <div class="mini-card-text">Certificado de primaria completa · Ranking o notas de primaria · DNI del estudiante · Evaluación de equivalencia (externos) · Carta de compromiso con el reglamento institucional</div>
+        </div>
+      </div>
+
+      <!-- VENTAJAS -->
+      <div class="highlight-box" style="margin-top:2.5rem;">
+        <h3>¿Por qué elegir esta institución?</h3>
+        <p>Uno de los pocos colegios privados del Perú con Bachillerato Internacional integrado y certificación IELTS C1 obligatoria para todos los egresados de secundaria. Dos rutas de egreso claras: título técnico profesional a los ~18 años o grado universitario a los ~19 años. En ambos casos con 1.5 a 2 años de ventaja frente al sistema educativo tradicional peruano.</p>
+      </div>
+
+      <div class="three-grid" style="margin-top:0;">
+        <div class="mini-card" style="text-align:center;">
+          <div style="font-size:28px;margin-bottom:.5rem;">🌍</div>
+          <div class="mini-card-title">IELTS C1 garantizado</div>
+          <div class="mini-card-text">Todos los egresados de secundaria reciben certificación IELTS C1 de inglés. Requisito obligatorio de egreso.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;">
+          <div style="font-size:28px;margin-bottom:.5rem;">🏆</div>
+          <div class="mini-card-title">Solo meritocracia</div>
+          <div class="mini-card-text">El acceso al BI depende exclusivamente del puntaje acumulado de 3 años. Sin favoritismos ni cupos especiales.</div>
+        </div>
+        <div class="mini-card" style="text-align:center;">
+          <div style="font-size:28px;margin-bottom:.5rem;">⚡</div>
+          <div class="mini-card-title">2 años de ventaja</div>
+          <div class="mini-card-text">Título técnico a los 18 o bachiller universitario a los 19. Versus los 20–21 años del sistema tradicional.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <footer><div class="container"><div class="footer-grid">
+    <div><div class="footer-brand">S.E. Privado</div><p class="footer-lema">Mérito · Disciplina · Futuro</p><p class="footer-about">Sistema educativo privado de cinco niveles integrados. Lima, Perú.</p></div>
+    <div class="footer-col"><h4>Admisión</h4><ul><li><a onclick="goTo('admision')">Proceso</a></li><li><a onclick="goTo('admision')">Requisitos</a></li><li><a onclick="goTo('intranet')">Intranet</a></li></ul></div>
+    <div class="footer-col"><h4>Programas</h4><ul><li><a onclick="goTo('inicial')">Inicial</a></li><li><a onclick="goTo('primaria')">Primaria</a></li><li><a onclick="goTo('secundaria')">Secundaria</a></li><li><a onclick="goTo('instituto')">Instituto</a></li><li><a onclick="goTo('universidad')">Universidad</a></li></ul></div>
+  </div><div class="footer-bottom"><p>© S.E. Privado · Lima, Perú · Proyecto en desarrollo</p><div class="footer-badge">Portal Privado · Acceso Autorizado</div></div></div></footer>
+</div>
+
 </div><!-- /site -->
 
 <script>
+// INTRANET LOGIN
+function intraLogin(){
+  const cod = document.getElementById('intra-codigo').value.trim();
+  const pass = document.getElementById('intra-pass').value.trim();
+  const err = document.getElementById('intra-error');
+  err.style.display='none';
+
+  // Usuarios registrados: prefijo+dni+año · contraseña
+  const usuarios = [
+    {codigo:'107118691527', pass:'9876', rol:'estudiante'},
+    {codigo:'207118691527', pass:'9876', rol:'docente'},
+    {codigo:'307118691527', pass:'9876', rol:'siga'},
+  ];
+
+  const match = usuarios.find(u => u.codigo === cod && u.pass === pass);
+
+  if(!match){
+    err.style.display='block';
+    document.getElementById('intra-pass').value='';
+    document.getElementById('intra-codigo').style.borderColor='#FECACA';
+    document.getElementById('intra-pass').style.borderColor='#FECACA';
+    return;
+  }
+
+  if(match.rol==='estudiante') goTo('portal-estudiante');
+  else if(match.rol==='docente') goTo('portal-docente');
+  else if(match.rol==='siga') goTo('portal-siga');
+
+  // Limpiar campos
+  document.getElementById('intra-codigo').value='';
+  document.getElementById('intra-pass').value='';
+}
+
 // LOGIN
 function doLogin(){
   const u=document.getElementById('lu').value.trim();
