@@ -337,6 +337,7 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
     </div>
 
     <button class="nav-link" data-page="intranet" onclick="goTo('intranet')">Intranet</button>
+    <button class="nav-link" style="background:linear-gradient(135deg,var(--gold),var(--gold-light))!important;color:var(--navy-dark)!important;padding:8px 16px!important;border-radius:6px!important;font-weight:600!important;" onclick="goTo('postular')">Postular</button>
     <button class="nav-link nav-cta" data-page="admision" onclick="goTo('admision')">Admisión</button>
   </div>
 </nav>
@@ -909,7 +910,7 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
           </div>
           <div style="margin-bottom:10px;">
             <label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">CÓDIGO INSTITUCIONAL</label>
-            <input id="intra-codigo" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;" type="text" placeholder="Ej: 10•••••••••••" autocomplete="off" oninput="this.style.borderColor='var(--ivory-dark)'">
+            <input id="intra-codigo" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;" type="text" placeholder="Ej: 10•••••••••••" autocomplete="off" oninput="this.style.borderColor='var(--ivory-dark)'" onkeydown="if(event.key==='Enter')intraLogin()">
           </div>
           <div style="margin-bottom:16px;">
             <label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">CONTRASEÑA</label>
@@ -919,7 +920,7 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
           <button onclick="intraLogin()" style="width:100%;background:linear-gradient(135deg,var(--navy),var(--navy-mid));border:none;border-radius:8px;padding:13px;color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.5px;transition:opacity .2s;">Ingresar</button>
           <p style="font-size:12px;color:var(--text-muted);margin-top:1.25rem;text-align:center;font-weight:300;">¿Olvidaste tu contraseña? Contacta a secretaría académica.</p>
         </div>
-        <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;">
+        <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center;">
           <div style="background:rgba(15,42,74,.05);border-radius:10px;padding:1rem .75rem;border:1px solid rgba(15,42,74,.1);">
             <div style="font-size:20px;margin-bottom:4px;">🎓</div>
             <div style="font-size:11px;font-weight:500;color:var(--navy);margin-bottom:2px;">Estudiantes</div>
@@ -934,6 +935,11 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
             <div style="font-size:20px;margin-bottom:4px;">⚙️</div>
             <div style="font-size:11px;font-weight:500;color:#7A5200;margin-bottom:2px;">Administrativos</div>
             <div style="font-size:11px;color:var(--text-muted);font-weight:300;">Código 30•••</div>
+          </div>
+          <div style="background:rgba(22,163,74,.05);border-radius:10px;padding:1rem .75rem;border:1px solid rgba(22,163,74,.15);">
+            <div style="font-size:20px;margin-bottom:4px;">📋</div>
+            <div style="font-size:11px;font-weight:500;color:#16A34A;margin-bottom:2px;">Postulantes</div>
+            <div style="font-size:11px;color:var(--text-muted);font-weight:300;">Código 41•••</div>
           </div>
         </div>
       </div>
@@ -1252,6 +1258,136 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
   </div><div class="footer-bottom"><p>© S.E. Privado · Lima, Perú · Proyecto en desarrollo</p><div class="footer-badge">Portal Privado · Acceso Autorizado</div></div></div></footer>
 </div>
 
+<!-- ═══ PORTAL POSTULANTE ═══ -->
+<div class="page" id="page-portal-postulante">
+  <div style="background:linear-gradient(135deg,#14532D,#16A34A);padding:0;position:sticky;top:68px;z-index:50;border-bottom:1px solid rgba(255,255,255,.1);">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-size:18px;">📋</span><span style="font-family:'Cormorant Garamond',serif;font-size:17px;color:white;font-weight:600;">Panel del Postulante</span><span style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;padding-left:12px;border-left:1px solid rgba(255,255,255,.15);">UNIVERSIDAD · S.E. PRIVADO</span></div>
+      <button onclick="goTo('intranet')" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:6px 14px;color:rgba(255,255,255,.7);font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;">Cerrar sesión</button>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,#14532D 0%,#166534 100%);padding:3rem 0 2.5rem;">
+    <div class="container"><div style="font-size:12px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem;">Bienvenido</div><div style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);color:white;font-weight:600;margin-bottom:.5rem;">Panel del Postulante</div><div style="font-size:14px;color:rgba(255,255,255,.5);font-weight:300;">Gestiona tu proceso de admisión a la universidad</div></div>
+  </div>
+  <div class="content-body"><div class="container">
+    <!-- PROGRESO -->
+    <div style="background:white;border-radius:12px;border:1px solid var(--ivory-dark);padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
+      <div style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:.75rem;display:flex;justify-content:space-between;"><span>Progreso de postulación</span><span id="progress-pct" style="color:#16A34A;font-weight:600;">0%</span></div>
+      <div style="background:var(--ivory-dark);border-radius:20px;height:10px;overflow:hidden;"><div id="progress-fill" style="background:linear-gradient(90deg,#16A34A,#4ADE80);height:100%;border-radius:20px;width:0%;transition:width .5s;"></div></div>
+      <div style="display:flex;gap:6px;margin-top:.6rem;flex-wrap:wrap;" id="progress-steps">
+        <span id="ps-datos" style="font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;background:var(--ivory-dark);color:var(--text-muted);">📋 Datos personales</span>
+        <span id="ps-carrera" style="font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;background:var(--ivory-dark);color:var(--text-muted);">🎓 Carrera seleccionada</span>
+        <span id="ps-metodo" style="font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;background:var(--ivory-dark);color:var(--text-muted);">💳 Método de pago</span>
+        <span id="ps-pago" style="font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;background:var(--ivory-dark);color:var(--text-muted);">✅ Pago realizado</span>
+      </div>
+    </div>
+    <!-- INFO -->
+    <div style="background:white;border-radius:12px;border:1px solid var(--ivory-dark);padding:1.5rem;margin-bottom:1.5rem;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--navy-dark);margin-bottom:1rem;">Información del postulante</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+        <div style="background:var(--ivory);border-radius:8px;padding:.75rem 1rem;"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">CÓDIGO</div><div style="font-size:13px;font-weight:600;color:var(--navy);" id="info-codigo">—</div></div>
+        <div style="background:var(--ivory);border-radius:8px;padding:.75rem 1rem;"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">DNI / DOCUMENTO</div><div style="font-size:13px;font-weight:600;color:var(--navy);" id="info-dni">—</div></div>
+        <div style="background:var(--ivory);border-radius:8px;padding:.75rem 1rem;"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">CORREO</div><div style="font-size:13px;font-weight:600;color:var(--navy);" id="info-correo">—</div></div>
+        <div style="background:var(--ivory);border-radius:8px;padding:.75rem 1rem;"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">TELÉFONO</div><div style="font-size:13px;font-weight:600;color:var(--navy);" id="info-tel">—</div></div>
+        <div style="background:var(--ivory);border-radius:8px;padding:.75rem 1rem;"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">ESTADO</div><div style="font-size:13px;font-weight:600;color:#16A34A;" id="info-estado">Activo</div></div>
+        <div style="background:var(--ivory);border-radius:8px;padding:.75rem 1rem;"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">N° PAGO</div><div style="font-size:13px;font-weight:600;color:var(--navy);" id="info-numpago">—</div></div>
+      </div>
+    </div>
+    <!-- FORMULARIO -->
+    <div style="background:white;border-radius:12px;border:1px solid var(--ivory-dark);padding:1.5rem;margin-bottom:1.5rem;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--navy-dark);margin-bottom:1.25rem;">Formulario de postulación</div>
+      <div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">FACULTAD</label>
+        <select id="post-facultad" onchange="updateCarrerasPost()" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--text);outline:none;cursor:pointer;">
+          <option value="">— Seleccionar facultad —</option>
+          <option>Ingeniería</option><option>Computación &amp; Tecnología</option><option>Ciencias de la Salud</option><option>Economía &amp; Negocios</option><option>Derecho &amp; RR.II.</option><option>Ciencias Básicas</option><option>Cs. Sociales &amp; Humanidades</option><option>Arquitectura &amp; Urbanismo</option><option>Ciencias Ambientales</option>
+        </select>
+      </div>
+      <div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">CARRERA</label>
+        <select id="post-carrera" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--text);outline:none;cursor:pointer;"><option value="">— Primero selecciona una facultad —</option></select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">PAGO PROSPECTO (S/ 30)</label>
+          <select id="post-met-prospecto" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;">
+            <option value="">— Seleccionar —</option><option>Transferencia BCP</option><option>Transferencia Interbank</option><option>Yape</option><option>Plin</option><option>Agente bancario</option>
+          </select>
+        </div>
+        <div><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">PAGO EXAMEN (S/ 120)</label>
+          <select id="post-met-examen" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;">
+            <option value="">— Seleccionar —</option><option>Transferencia BCP</option><option>Transferencia Interbank</option><option>Yape</option><option>Plin</option><option>Agente bancario</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="actualizarDatosPost()" style="width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-light));border:none;border-radius:8px;padding:13px;color:var(--navy-dark);font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.5px;margin-top:4px;">Actualizar datos y generar pago →</button>
+    </div>
+    <!-- PAGO -->
+    <div id="pago-section" style="display:none;margin-bottom:1.5rem;">
+      <div style="background:var(--navy-dark);border-radius:12px;padding:1.5rem;color:white;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold-light);margin-bottom:1rem;">💳 Datos para el pago</div>
+        <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Número de pago asignado</span><span id="pago-num" style="font-family:'Courier New',monospace;font-size:15px;color:var(--gold-light);"></span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Cuenta BCP</span><span style="font-family:'Courier New',monospace;">194-12847563-0-18</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Titular</span><span>S.E. Privado SAC</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Prospecto</span><span>S/ 30.00</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Examen de admisión</span><span>S/ 120.00</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.6rem 0;font-size:14px;font-weight:600;"><span style="color:rgba(255,255,255,.6);">TOTAL A PAGAR</span><span style="color:var(--gold-light);">S/ 150.00</span></div>
+      </div>
+      <div style="background:white;border-radius:12px;border:1px solid var(--ivory-dark);padding:1.25rem;margin-top:1rem;">
+        <div style="font-size:14px;font-weight:500;color:var(--navy-dark);margin-bottom:.75rem;">¿Ya realizaste el pago?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+          <div><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">FECHA DE PAGO</label><input type="date" id="pago-fecha" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:10px 14px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;"></div>
+          <div><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">N° DE OPERACIÓN</label><input type="text" id="pago-operacion" placeholder="Ej: 123456789" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:10px 14px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;"></div>
+        </div>
+        <button onclick="confirmarPago()" style="background:var(--navy);border:none;border-radius:8px;padding:11px 24px;color:white;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Confirmar pago realizado</button>
+      </div>
+    </div>
+    <!-- BTN REGISTRO -->
+    <button id="btn-registro-final" onclick="abrirRegistroFinal()" style="display:none;width:100%;background:linear-gradient(135deg,#14532D,#16A34A);border:none;border-radius:8px;padding:14px;color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.5px;margin-bottom:2rem;">✅ Completar registro de postulante →</button>
+  </div></div>
+  <footer><div class="container"><div class="footer-grid"><div><div class="footer-brand">S.E. Privado</div><p class="footer-lema">Mérito · Disciplina · Futuro</p></div><div class="footer-col"><h4>Mi postulación</h4><ul><li><a onclick="goTo('portal-postulante')">Panel</a></li><li><a onclick="goTo('intranet')">Cerrar sesión</a></li></ul></div><div class="footer-col"><h4>Sistema</h4><ul><li><a onclick="goTo('universidad')">Universidad</a></li></ul></div></div><div class="footer-bottom"><p>© S.E. Privado · Portal Postulante</p><div class="footer-badge">Sesión activa</div></div></div></footer>
+</div>
+
+<!-- ═══ MODAL REGISTRO FINAL ═══ -->
+<div id="modal-registro" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9000;align-items:center;justify-content:center;backdrop-filter:blur(4px);">
+  <div id="modal-box" style="background:white;border-radius:16px;padding:2.5rem;max-width:560px;width:90vw;max-height:85vh;overflow-y:auto;"></div>
+</div>
+
+<!-- ═══ POSTULAR (REGISTRO) ═══ -->
+<div class="page" id="page-postular">
+  <div class="page-hero dark" style="background-image:radial-gradient(ellipse at 30% 80%,rgba(22,163,74,.25),transparent 55%);">
+    <div class="container"><div class="section-label" style="color:var(--gold)">Admisión universitaria</div><h1>Postular a la Universidad</h1><p>Crea tu usuario de postulante para iniciar el proceso de admisión. Solo necesitas tu DNI, teléfono y correo electrónico.</p></div>
+  </div>
+  <div class="content-body"><div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+      <div>
+        <div class="section-label">Registro</div>
+        <h2 class="section-title" style="margin-bottom:.5rem;">Crear usuario de postulante</h2>
+        <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:1.5rem;font-weight:300;line-height:1.7;">Una vez creado tu usuario, ingresa desde <strong>Intranet</strong> con tu código <strong>41 + DNI + año de ingreso</strong> y la contraseña que elijas.</p>
+        <div style="background:white;border-radius:14px;border:1px solid var(--ivory-dark);padding:2rem;">
+          <div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">DNI / CARNÉ / PASAPORTE</label><input id="reg-dni" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;" type="text" placeholder="Número de documento" maxlength="20"></div>
+          <div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">TELÉFONO</label><input id="reg-tel" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;" type="tel" placeholder="Ej: 987654321"></div>
+          <div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">CORREO ELECTRÓNICO</label><input id="reg-correo" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;" type="email" placeholder="correo@ejemplo.com"></div>
+          <div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">CONTRASEÑA</label><input id="reg-pass" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;" type="password" placeholder="Mínimo 6 caracteres"></div>
+          <div style="margin-bottom:16px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">CONFIRMAR CONTRASEÑA</label><input id="reg-pass2" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;" type="password" placeholder="Repite tu contraseña"></div>
+          <div id="reg-error" style="display:none;background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:14px;"></div>
+          <div id="reg-success" style="display:none;background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:10px 14px;font-size:13px;color:#16A34A;margin-bottom:14px;line-height:1.6;"></div>
+          <button onclick="registrarPostulante()" style="width:100%;background:linear-gradient(135deg,#14532D,#16A34A);border:none;border-radius:8px;padding:13px;color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.5px;">Crear usuario de postulante</button>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:1rem;text-align:center;font-weight:300;">¿Ya tienes usuario? <a onclick="goTo('intranet')" style="color:var(--navy);cursor:pointer;font-weight:500;">Ir a Intranet</a></p>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">¿Cómo funciona?</div>
+        <h2 class="section-title" style="margin-bottom:1rem;">Proceso de postulación</h2>
+        <div class="merito-steps">
+          <div class="merito-step"><div class="merito-num" style="background:#16A34A;">1</div><div><div class="merito-title">Crear usuario</div><div class="merito-text">Registra tu documento, teléfono y correo. Tu código de acceso será <strong>41 + DNI + 27</strong>.</div></div></div>
+          <div class="merito-step"><div class="merito-num" style="background:#16A34A;">2</div><div><div class="merito-title">Ingresar al portal</div><div class="merito-text">Ve a <strong>Intranet</strong> y accede con tu código 41••• y contraseña elegida.</div></div></div>
+          <div class="merito-step"><div class="merito-num" style="background:#16A34A;">3</div><div><div class="merito-title">Seleccionar carrera y pagar</div><div class="merito-text">Elige facultad, carrera y método de pago. Total: <strong>S/ 150</strong> (prospecto S/30 + examen S/120).</div></div></div>
+          <div class="merito-step"><div class="merito-num" style="background:#16A34A;">4</div><div><div class="merito-title">Completar el registro</div><div class="merito-text">Al 100% se habilita el registro final. Una vez enviado, es definitivo e irreversible.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  <footer><div class="container"><div class="footer-grid"><div><div class="footer-brand">S.E. Privado</div><p class="footer-lema">Mérito · Disciplina · Futuro</p></div><div class="footer-col"><h4>Postulación</h4><ul><li><a onclick="goTo('postular')">Registrarse</a></li><li><a onclick="goTo('intranet')">Intranet</a></li></ul></div><div class="footer-col"><h4>Universidad</h4><ul><li><a onclick="goTo('universidad')">Carreras</a></li><li><a onclick="goTo('admision')">Admisión</a></li></ul></div></div><div class="footer-bottom"><p>© S.E. Privado · Lima, Perú</p><div class="footer-badge">Portal Privado</div></div></div></footer>
+</div>
+
 </div><!-- /site -->
 
 <script>
@@ -1303,7 +1439,12 @@ function doLogin(){
     document.getElementById('lp').value='';
   }
 }
-document.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.addEventListener('keydown',e=>{
+  const active=document.activeElement;
+  const inLoginOverlay=document.getElementById('login-overlay').style.display!=='none';
+  if(e.key==='Enter'&&inLoginOverlay)doLogin();
+});
+
 
 // NAV
 function goTo(page){
@@ -1368,6 +1509,7 @@ const FACS=[
     {n:"Psicología",dur:"4 años",grado:"Bachiller en Psicología",titulo:"Licenciado en Psicología",img:"https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1400&auto=format&fit=crop&q=80",desc:"Estudia el comportamiento humano y los procesos mentales. Los egresados se especializan en psicología clínica, organizacional y neuropsicología.",perfil:"Comprende científicamente el comportamiento humano y evalúa, diagnostica e interviene en distintos contextos con ética, empatía y rigor científico."},
     {n:"Sociología",dur:"4 años",grado:"Bachiller en Sociología",titulo:"Sociólogo",img:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&auto=format&fit=crop&q=80",desc:"Analiza la estructura y dinámica de las sociedades. Los egresados trabajan en políticas públicas, desarrollo social y organismos internacionales.",perfil:"Analiza las dinámicas sociales para comprender problemáticas y generar propuestas de desarrollo sostenible, inclusión y justicia social."},
     {n:"Pedagogía",dur:"4 años",grado:"Bachiller en Educación",titulo:"Licenciado en Educación",img:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1400&auto=format&fit=crop&q=80",desc:"Forma educadores con dominio de pedagogía, didáctica y gestión educativa. Los egresados lideran procesos de transformación del sistema educativo.",perfil:"Educador capaz de diseñar y gestionar procesos de enseñanza innovadores e inclusivos, promoviendo el desarrollo integral con ética y compromiso social."},
+    {n:"Historia",dur:"4 años",grado:"Bachiller en Historia",titulo:"Licenciado en Historia",img:"https://images.unsplash.com/photo-1461360228754-6e81c478b882?w=1400&auto=format&fit=crop&q=80",desc:"Estudia el pasado humano para comprender el presente y orientar el futuro. Los egresados trabajan en investigación, docencia, museos, archivos y patrimonio cultural.",perfil:"Investiga y analiza procesos históricos con pensamiento crítico, contribuyendo a la preservación del patrimonio cultural y la comprensión de la identidad colectiva."},
   ]},
   {n:"Arquitectura & Urbanismo",c:"#888780",dur:"4 años",img:"https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1400&auto=format&fit=crop&q=80",carreras:[
     {n:"Arquitectura",dur:"4 años",grado:"Bachiller en Arquitectura",titulo:"Arquitecto",img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&auto=format&fit=crop&q=80",desc:"Forma profesionales en el diseño, planificación y construcción de espacios habitables. Los egresados proyectan edificios y espacios públicos que responden a las necesidades humanas.",perfil:"Diseña espacios y edificaciones funcionales, estéticas y sostenibles, integrando creatividad y técnica para mejorar la calidad de vida y el entorno construido."},
