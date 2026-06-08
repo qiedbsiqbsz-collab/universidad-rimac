@@ -1281,6 +1281,28 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
         <span id="ps-pago" style="font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;background:var(--ivory-dark);color:var(--text-muted);">✅ Pago realizado</span>
       </div>
     </div>
+    <!-- FOTO -->
+    <div style="background:white;border-radius:12px;border:1px solid var(--ivory-dark);padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1.5rem;">
+      <div style="position:relative;flex-shrink:0;">
+        <div id="foto-preview" style="width:88px;height:88px;border-radius:50%;background:var(--ivory);border:2.5px solid var(--ivory-dark);display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;" onclick="document.getElementById('foto-input').click()">
+          <img id="foto-img" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          <div id="foto-placeholder" style="text-align:center;">
+            <div style="font-size:28px;margin-bottom:2px;">👤</div>
+            <div style="font-size:9px;color:var(--text-muted);font-weight:500;">SUBIR FOTO</div>
+          </div>
+        </div>
+        <div onclick="document.getElementById('foto-input').click()" style="position:absolute;bottom:0;right:0;width:26px;height:26px;background:#16A34A;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid white;">
+          <span style="color:white;font-size:13px;line-height:1;">＋</span>
+        </div>
+        <input type="file" id="foto-input" accept="image/*" style="display:none;" onchange="cargarFoto(this)">
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--navy-dark);margin-bottom:3px;">Foto del postulante</div>
+        <div style="font-size:12.5px;color:var(--text-muted);font-weight:300;line-height:1.6;">Sube una foto tipo carné con fondo blanco.<br>Se incluirá en tu registro oficial.</div>
+        <div id="foto-ok" style="display:none;font-size:12px;color:#16A34A;margin-top:4px;font-weight:500;">✅ Foto cargada correctamente</div>
+      </div>
+    </div>
+
     <!-- INFO -->
     <div style="background:white;border-radius:12px;border:1px solid var(--ivory-dark);padding:1.5rem;margin-bottom:1.5rem;">
       <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--navy-dark);margin-bottom:1rem;">Información del postulante</div>
@@ -1306,12 +1328,12 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
         <select id="post-carrera" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--text);outline:none;cursor:pointer;"><option value="">— Primero selecciona una facultad —</option></select>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-        <div><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">PAGO PROSPECTO (S/ 30)</label>
+        <div><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">PAGO PROSPECTO (S/ 80)</label>
           <select id="post-met-prospecto" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;">
             <option value="">— Seleccionar —</option><option>Transferencia BCP</option><option>Transferencia Interbank</option><option>Yape</option><option>Plin</option><option>Agente bancario</option>
           </select>
         </div>
-        <div><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">PAGO EXAMEN (S/ 120)</label>
+        <div><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">PAGO EXAMEN (S/ 390)</label>
           <select id="post-met-examen" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;">
             <option value="">— Seleccionar —</option><option>Transferencia BCP</option><option>Transferencia Interbank</option><option>Yape</option><option>Plin</option><option>Agente bancario</option>
           </select>
@@ -1326,9 +1348,9 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
         <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Número de pago asignado</span><span id="pago-num" style="font-family:'Courier New',monospace;font-size:15px;color:var(--gold-light);"></span></div>
         <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Cuenta BCP</span><span style="font-family:'Courier New',monospace;">194-12847563-0-18</span></div>
         <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Titular</span><span>S.E. Privado SAC</span></div>
-        <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Prospecto</span><span>S/ 30.00</span></div>
-        <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Examen de admisión</span><span>S/ 120.00</span></div>
-        <div style="display:flex;justify-content:space-between;padding:.6rem 0;font-size:14px;font-weight:600;"><span style="color:rgba(255,255,255,.6);">TOTAL A PAGAR</span><span style="color:var(--gold-light);">S/ 150.00</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Prospecto</span><span>S/ 80.00</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;"><span style="color:rgba(255,255,255,.6);">Examen de admisión</span><span>S/ 390.00</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.6rem 0;font-size:14px;font-weight:600;"><span style="color:rgba(255,255,255,.6);">TOTAL A PAGAR</span><span style="color:var(--gold-light);">S/ 470.00</span></div>
       </div>
       <div style="background:white;border-radius:12px;border:1px solid var(--ivory-dark);padding:1.25rem;margin-top:1rem;">
         <div style="font-size:14px;font-weight:500;color:var(--navy-dark);margin-bottom:.75rem;">¿Ya realizaste el pago?</div>
@@ -1360,7 +1382,7 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
       <div>
         <div class="section-label">Registro</div>
         <h2 class="section-title" style="margin-bottom:.5rem;">Crear usuario de postulante</h2>
-        <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:1.5rem;font-weight:300;line-height:1.7;">Una vez creado tu usuario, ingresa desde <strong>Intranet</strong> con tu código <strong>41 + DNI + año de ingreso</strong> y la contraseña que elijas.</p>
+        <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:1.5rem;font-weight:300;line-height:1.7;">Una vez creado tu usuario, ingresa desde <strong>Intranet</strong> con tu código <strong>41 + DNI + 27</strong> y la contraseña que elijas.</p>
         <div style="background:white;border-radius:14px;border:1px solid var(--ivory-dark);padding:2rem;">
           <div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">DNI / CARNÉ / PASAPORTE</label><input id="reg-dni" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;" type="text" placeholder="Número de documento" maxlength="20"></div>
           <div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:5px;">TELÉFONO</label><input id="reg-tel" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;" type="tel" placeholder="Ej: 987654321"></div>
@@ -1379,7 +1401,7 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
         <div class="merito-steps">
           <div class="merito-step"><div class="merito-num" style="background:#16A34A;">1</div><div><div class="merito-title">Crear usuario</div><div class="merito-text">Registra tu documento, teléfono y correo. Tu código de acceso será <strong>41 + DNI + 27</strong>.</div></div></div>
           <div class="merito-step"><div class="merito-num" style="background:#16A34A;">2</div><div><div class="merito-title">Ingresar al portal</div><div class="merito-text">Ve a <strong>Intranet</strong> y accede con tu código 41••• y contraseña elegida.</div></div></div>
-          <div class="merito-step"><div class="merito-num" style="background:#16A34A;">3</div><div><div class="merito-title">Seleccionar carrera y pagar</div><div class="merito-text">Elige facultad, carrera y método de pago. Total: <strong>S/ 150</strong> (prospecto S/30 + examen S/120).</div></div></div>
+          <div class="merito-step"><div class="merito-num" style="background:#16A34A;">3</div><div><div class="merito-title">Seleccionar carrera y pagar</div><div class="merito-text">Elige facultad, carrera y método de pago. Total: <strong>S/ 470</strong> (prospecto S/80 + examen S/390).</div></div></div>
           <div class="merito-step"><div class="merito-num" style="background:#16A34A;">4</div><div><div class="merito-title">Completar el registro</div><div class="merito-text">Al 100% se habilita el registro final. Una vez enviado, es definitivo e irreversible.</div></div></div>
         </div>
       </div>
@@ -1391,37 +1413,395 @@ footer{background:var(--dark);padding:3.5rem 0 2rem;}
 </div><!-- /site -->
 
 <script>
-// INTRANET LOGIN
+// ═══ ALMACENAMIENTO DE POSTULANTES (localStorage para persistencia) ═══
+function getDB(){ try{ return JSON.parse(localStorage.getItem('sep_postulantes')||'{}'); }catch(e){return{};} }
+function saveDB(db){ try{ localStorage.setItem('sep_postulantes', JSON.stringify(db)); }catch(e){} }
+
+// ═══ ESTADO ACTUAL DE SESIÓN POSTULANTE ═══
+let sesionPostulante = null;
+
+// ═══ INTRANET LOGIN ═══
 function intraLogin(){
   const cod = document.getElementById('intra-codigo').value.trim();
-  const pass = document.getElementById('intra-pass').value.trim();
+  const pass = document.getElementById('intra-pass').value;
   const err = document.getElementById('intra-error');
   err.style.display='none';
+  document.getElementById('intra-codigo').style.borderColor='';
+  document.getElementById('intra-pass').style.borderColor='';
 
-  // Usuarios registrados: prefijo+dni+año · contraseña
-  const usuarios = [
+  // Usuarios fijos
+  const usuariosFijos = [
     {codigo:'107118691527', pass:'9876', rol:'estudiante'},
     {codigo:'207118691527', pass:'9876', rol:'docente'},
     {codigo:'307118691527', pass:'9876', rol:'siga'},
   ];
 
-  const match = usuarios.find(u => u.codigo === cod && u.pass === pass);
-
-  if(!match){
-    err.style.display='block';
+  const matchFijo = usuariosFijos.find(u => u.codigo === cod && u.pass === pass);
+  if(matchFijo){
+    if(matchFijo.rol==='estudiante') goTo('portal-estudiante');
+    else if(matchFijo.rol==='docente') goTo('portal-docente');
+    else if(matchFijo.rol==='siga') goTo('portal-siga');
+    document.getElementById('intra-codigo').value='';
     document.getElementById('intra-pass').value='';
-    document.getElementById('intra-codigo').style.borderColor='#FECACA';
-    document.getElementById('intra-pass').style.borderColor='#FECACA';
     return;
   }
 
-  if(match.rol==='estudiante') goTo('portal-estudiante');
-  else if(match.rol==='docente') goTo('portal-docente');
-  else if(match.rol==='siga') goTo('portal-siga');
+  // Verificar postulantes (prefijo 41)
+  if(cod.startsWith('41')){
+    const db = getDB();
+    const todos = Object.values(db);
+    const post = todos.find(p => p.codigo === cod && p.pass === pass);
+    if(post){
+      sesionPostulante = post;
+      cargarPanelPostulante();
+      goTo('portal-postulante');
+      document.getElementById('intra-codigo').value='';
+      document.getElementById('intra-pass').value='';
+      return;
+    }
+  }
 
-  // Limpiar campos
-  document.getElementById('intra-codigo').value='';
+  err.style.display='block';
   document.getElementById('intra-pass').value='';
+  document.getElementById('intra-codigo').style.borderColor='#FECACA';
+  document.getElementById('intra-pass').style.borderColor='#FECACA';
+}
+
+// ═══ REGISTRAR POSTULANTE ═══
+function registrarPostulante(){
+  const dni = document.getElementById('reg-dni').value.trim();
+  const tel = document.getElementById('reg-tel').value.trim();
+  const correo = document.getElementById('reg-correo').value.trim();
+  const pass = document.getElementById('reg-pass').value;
+  const pass2 = document.getElementById('reg-pass2').value;
+  const errEl = document.getElementById('reg-error');
+  const okEl = document.getElementById('reg-success');
+  errEl.style.display='none'; okEl.style.display='none';
+
+  if(!dni || !tel || !correo || !pass || !pass2){
+    errEl.textContent='Todos los campos son obligatorios.'; errEl.style.display='block'; return;
+  }
+  if(pass.length < 6){
+    errEl.textContent='La contraseña debe tener mínimo 6 caracteres.'; errEl.style.display='block'; return;
+  }
+  if(pass !== pass2){
+    errEl.textContent='Las contraseñas no coinciden.'; errEl.style.display='block'; return;
+  }
+  if(!/\S+@\S+\.\S+/.test(correo)){
+    errEl.textContent='Ingresa un correo electrónico válido.'; errEl.style.display='block'; return;
+  }
+  const dbCheck=getDB(); if(dbCheck[dni]){
+    errEl.textContent='Ya existe un usuario registrado con ese documento.'; errEl.style.display='block'; return;
+  }
+
+  const codigo = '41' + dni + '27';
+  const numPago = 'PAG-' + Math.floor(Math.random()*900000+100000);
+
+  const dbNew=getDB(); dbNew[dni] = {
+    dni, tel, correo, pass, codigo, numPago,
+    facultad:'', carrera:'', metProspecto:'', metExamen:'',
+    pagado: false, fechaPago:'', numOperacion:'',
+    registroFinal: false
+  };
+  saveDB(dbNew);
+
+  okEl.innerHTML = `✅ <strong>Usuario creado exitosamente.</strong><br>
+    Tu código de acceso es: <strong style="font-family:monospace;font-size:15px;">${codigo}</strong><br>
+    Guárdalo junto a tu contraseña. Ingresa desde <strong>Intranet</strong>.`;
+  okEl.style.display='block';
+  document.getElementById('reg-dni').value='';
+  document.getElementById('reg-tel').value='';
+  document.getElementById('reg-correo').value='';
+  document.getElementById('reg-pass').value='';
+  document.getElementById('reg-pass2').value='';
+}
+
+// ═══ CARGAR PANEL POSTULANTE ═══
+function cargarPanelPostulante(){
+  if(!sesionPostulante) return;
+  const p = sesionPostulante;
+  document.getElementById('info-codigo').textContent = p.codigo;
+  document.getElementById('info-dni').textContent = p.dni;
+  document.getElementById('info-correo').textContent = p.correo;
+  document.getElementById('info-tel').textContent = p.tel;
+  document.getElementById('info-numpago').textContent = p.numPago;
+
+  if(p.facultad) document.getElementById('post-facultad').value = p.facultad;
+  updateCarrerasPost();
+  if(p.carrera){ setTimeout(()=>{ document.getElementById('post-carrera').value = p.carrera; }, 50); }
+  if(p.metProspecto) document.getElementById('post-met-prospecto').value = p.metProspecto;
+  if(p.metExamen) document.getElementById('post-met-examen').value = p.metExamen;
+
+  if(p.numPago && (p.facultad || p.carrera)){
+    document.getElementById('pago-section').style.display='block';
+    document.getElementById('pago-num').textContent = p.numPago;
+  }
+  if(p.pagado){
+    document.getElementById('pago-fecha').value = p.fechaPago;
+    document.getElementById('pago-operacion').value = p.numOperacion;
+  }
+
+  actualizarProgreso();
+  // Restore photo if saved
+  if(p.foto){
+    fotoDataURL = p.foto;
+    const img = document.getElementById('foto-img');
+    const ph = document.getElementById('foto-placeholder');
+    if(img){ img.src = p.foto; img.style.display='block'; }
+    if(ph){ ph.style.display='none'; }
+    const ok = document.getElementById('foto-ok');
+    if(ok) ok.style.display='block';
+  }
+}
+
+// ═══ FOTO DEL POSTULANTE ═══
+let fotoDataURL = null;
+function cargarFoto(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    fotoDataURL = e.target.result;
+    const img = document.getElementById('foto-img');
+    const ph = document.getElementById('foto-placeholder');
+    img.src = fotoDataURL;
+    img.style.display = 'block';
+    ph.style.display = 'none';
+    document.getElementById('foto-ok').style.display = 'block';
+    if(sesionPostulante){
+      sesionPostulante.foto = fotoDataURL;
+      const db=getDB(); db[sesionPostulante.dni]=sesionPostulante; saveDB(db);
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+// ═══ CARRERAS POR FACULTAD ═══
+const CARRERAS_POR_FAC = {
+  'Ingeniería': [
+    'Ingeniería Civil','Ingeniería Industrial','Ingeniería Mecatrónica',
+    'Ingeniería Eléctrica','Ingeniería Electrónica','Ingeniería Mecánica',
+    'Ingeniería Química','Ingeniería de Minas','Ingeniería Metalúrgica',
+    'Ingeniería de Materiales','Ingeniería Agroindustrial','Ingeniería Sanitaria',
+    'Ingeniería de Petróleo y Gas','Ingeniería Aeronáutica','Ingeniería Naval',
+    'Ingeniería de Telecomunicaciones','Ingeniería Biomédica','Ingeniería de Energía',
+    'Ingeniería de Sistemas','Ingeniería de Software',
+  ],
+  'Computación & Tecnología': [
+    'Ciencia de Datos','Informática','Inteligencia Artificial',
+    'Ciberseguridad','Ingeniería en la Nube','Desarrollo de Videojuegos',
+  ],
+  'Ciencias de la Salud': [
+    'Medicina Humana','Estomatología / Odontología','Farmacia y Bioquímica',
+    'Enfermería','Obstetricia','Nutrición y Dietética',
+    'Tecnología Médica — Laboratorio Clínico','Tecnología Médica — Terapia Física',
+    'Tecnología Médica — Radiología','Optometría','Psicología Clínica',
+  ],
+  'Economía & Negocios': [
+    'Economía','Administración de Empresas','Negocios Internacionales',
+    'Finanzas','Marketing','Contabilidad','Emprendimiento e Innovación',
+  ],
+  'Derecho & RR.II.': ['Derecho','Relaciones Internacionales','Ciencia Política'],
+  'Ciencias Básicas': [
+    'Matemática','Estadística','Física','Química','Biología',
+    'Bioquímica','Genética y Biotecnología',
+  ],
+  'Cs. Sociales & Humanidades': [
+    'Psicología','Sociología','Comunicación Social','Periodismo',
+    'Pedagogía','Lingüística','Historia','Filosofía','Antropología',
+  ],
+  'Arquitectura & Urbanismo': ['Arquitectura','Urbanismo y Ordenamiento Territorial','Diseño de Interiores'],
+  'Ciencias Ambientales': ['Ingeniería Ambiental','Geología','Ecología','Gestión de Recursos Hídricos'],
+};
+
+function updateCarrerasPost(){
+  const fac = document.getElementById('post-facultad').value;
+  const sel = document.getElementById('post-carrera');
+  sel.innerHTML = '<option value="">— Seleccionar carrera —</option>';
+  if(fac && CARRERAS_POR_FAC[fac]){
+    CARRERAS_POR_FAC[fac].forEach(c => {
+      const o = document.createElement('option'); o.value=c; o.textContent=c; sel.appendChild(o);
+    });
+  }
+}
+
+// ═══ ACTUALIZAR DATOS Y GENERAR PAGO ═══
+function actualizarDatosPost(){
+  if(!sesionPostulante){ alert('Sesión no encontrada.'); return; }
+  const p = sesionPostulante;
+  const fac = document.getElementById('post-facultad').value;
+  const car = document.getElementById('post-carrera').value;
+  const metP = document.getElementById('post-met-prospecto').value;
+  const metE = document.getElementById('post-met-examen').value;
+
+  if(!fac || !car){ alert('Selecciona una facultad y carrera antes de continuar.'); return; }
+  if(!metP || !metE){ alert('Selecciona el método de pago para prospecto y examen.'); return; }
+
+  p.facultad = fac; p.carrera = car; p.metProspecto = metP; p.metExamen = metE;
+  const dbAct=getDB(); dbAct[p.dni]=p; saveDB(dbAct);
+
+  document.getElementById('pago-section').style.display='block';
+  document.getElementById('pago-num').textContent = p.numPago;
+  actualizarProgreso();
+
+  // Scroll suave a sección de pago
+  document.getElementById('pago-section').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ═══ CONFIRMAR PAGO ═══
+function confirmarPago(){
+  if(!sesionPostulante) return;
+  const fecha = document.getElementById('pago-fecha').value;
+  const op = document.getElementById('pago-operacion').value.trim();
+  if(!fecha){ alert('Ingresa la fecha de pago.'); return; }
+  if(!op){ alert('Ingresa el número de operación.'); return; }
+
+  sesionPostulante.pagado = true;
+  sesionPostulante.fechaPago = fecha;
+  sesionPostulante.numOperacion = op;
+  const dbPago=getDB(); dbPago[sesionPostulante.dni]=sesionPostulante; saveDB(dbPago);
+
+  actualizarProgreso();
+  alert('✅ Pago registrado correctamente. Si tu progreso es 100%, ya puedes completar el registro.');
+}
+
+// ═══ BARRA DE PROGRESO ═══
+function actualizarProgreso(){
+  if(!sesionPostulante) return;
+  const p = sesionPostulante;
+  let pts = 0;
+  const steps = {datos:false, carrera:false, metodo:false, pago:false};
+
+  // Datos personales siempre completos (se validaron al registrar)
+  steps.datos = true; pts += 25;
+
+  if(p.carrera && p.facultad){ steps.carrera = true; pts += 25; }
+  if(p.metProspecto && p.metExamen){ steps.metodo = true; pts += 25; }
+  if(p.pagado){ steps.pago = true; pts += 25; }
+
+  document.getElementById('progress-fill').style.width = pts + '%';
+  document.getElementById('progress-pct').textContent = pts + '%';
+
+  const colorOn = '#16A34A';
+  const stylOn = `background:${colorOn};color:white;`;
+  const stylOff = 'background:var(--ivory-dark);color:var(--text-muted);';
+  document.getElementById('ps-datos').style.cssText = steps.datos ? stylOn : stylOff;
+  document.getElementById('ps-carrera').style.cssText = steps.carrera ? stylOn : stylOff;
+  document.getElementById('ps-metodo').style.cssText = steps.metodo ? stylOn : stylOff;
+  document.getElementById('ps-pago').style.cssText = steps.pago ? stylOn : stylOff;
+
+  const btnReg = document.getElementById('btn-registro-final');
+  if(pts === 100 && !p.registroFinal){
+    btnReg.style.display='block';
+  } else {
+    btnReg.style.display='none';
+  }
+}
+
+// ═══ MODAL REGISTRO FINAL ═══
+function abrirRegistroFinal(){
+  if(!sesionPostulante) return;
+  const p = sesionPostulante;
+  const modal = document.getElementById('modal-registro');
+  const box = document.getElementById('modal-box');
+
+  box.innerHTML = `
+    <div style="border-bottom:1px solid var(--ivory-dark);padding-bottom:1rem;margin-bottom:1.5rem;">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#16A34A;font-weight:500;margin-bottom:6px;">Registro oficial de postulantes</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy-dark);font-weight:600;">Formulario de registro final</div>
+      <p style="font-size:13px;color:#B91C1C;margin-top:.5rem;font-weight:500;">⚠️ Una vez enviado, este registro es definitivo e irreversible.</p>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:1.25rem;">
+      <div id="modal-foto-circle" style="width:72px;height:72px;border-radius:50%;border:2.5px solid var(--ivory-dark);overflow:hidden;flex-shrink:0;background:var(--ivory);display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:30px;">👤</span>
+      </div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--navy-dark);font-weight:600;" id="modal-nombre-preview">Postulante</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${p.codigo} · ${p.facultad}</div>
+      </div>
+    </div>
+
+    <div style="background:var(--ivory);border-radius:10px;padding:1.25rem;margin-bottom:1.25rem;">
+      <div style="font-size:12px;font-weight:600;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:.75rem;">Datos del postulante</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;">
+        <div><span style="color:var(--text-muted);">Código:</span> <strong>${p.codigo}</strong></div>
+        <div><span style="color:var(--text-muted);">DNI:</span> <strong>${p.dni}</strong></div>
+        <div><span style="color:var(--text-muted);">Correo:</span> <strong>${p.correo}</strong></div>
+        <div><span style="color:var(--text-muted);">Teléfono:</span> <strong>${p.tel}</strong></div>
+        <div><span style="color:var(--text-muted);">Facultad:</span> <strong>${p.facultad}</strong></div>
+        <div><span style="color:var(--text-muted);">Carrera:</span> <strong>${p.carrera}</strong></div>
+        <div><span style="color:var(--text-muted);">N° Pago:</span> <strong>${p.numPago}</strong></div>
+        <div><span style="color:var(--text-muted);">N° Operación:</span> <strong>${p.numOperacion}</strong></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:1rem;">
+      <div style="font-size:12px;font-weight:600;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:.75rem;">Datos adicionales requeridos</div>
+      <div style="margin-bottom:10px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:4px;">NOMBRES COMPLETOS</label><input id="rf-nombres" type="text" placeholder="Nombres y apellidos completos" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:10px 14px;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--text);outline:none;"></div>
+      <div style="margin-bottom:10px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:4px;">FECHA DE NACIMIENTO</label><input id="rf-nacimiento" type="date" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:10px 14px;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--text);outline:none;"></div>
+      <div style="margin-bottom:10px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:4px;">COLEGIO DE PROCEDENCIA</label><input id="rf-colegio" type="text" placeholder="Nombre del colegio de donde egresaste" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:10px 14px;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--text);outline:none;"></div>
+      <div style="margin-bottom:10px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:4px;">AÑO DE EGRESO DE SECUNDARIA</label><input id="rf-egreso" type="number" placeholder="Ej: 2024" min="2000" max="2030" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:10px 14px;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--text);outline:none;"></div>
+      <div style="margin-bottom:10px;"><label style="font-size:12px;font-weight:500;color:var(--text-muted);letter-spacing:.5px;display:block;margin-bottom:4px;">DIRECCIÓN DE RESIDENCIA</label><input id="rf-direccion" type="text" placeholder="Av. / Jr. / Ca. N° — Distrito, Lima" style="width:100%;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:10px 14px;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--text);outline:none;"></div>
+    </div>
+
+    <div id="rf-error" style="display:none;background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:12px;"></div>
+
+    <div style="display:flex;gap:12px;">
+      <button onclick="cerrarModal()" style="flex:1;background:var(--ivory);border:1.5px solid var(--ivory-dark);border-radius:8px;padding:12px;color:var(--text-muted);font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:500;cursor:pointer;">← Volver y revisar</button>
+      <button onclick="enviarRegistroFinal()" style="flex:2;background:linear-gradient(135deg,#14532D,#16A34A);border:none;border-radius:8px;padding:12px;color:white;font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;letter-spacing:.5px;">Confirmar y enviar registro definitivo ✅</button>
+    </div>
+  `;
+
+  modal.style.display='flex';
+  // Set photo in modal
+  const mfc = document.getElementById('modal-foto-circle');
+  if(mfc && fotoDataURL){
+    mfc.innerHTML = '<img src="'+fotoDataURL+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+  }
+}
+
+function cerrarModal(){
+  document.getElementById('modal-registro').style.display='none';
+}
+
+function enviarRegistroFinal(){
+  const nombres = document.getElementById('rf-nombres').value.trim();
+  const nacimiento = document.getElementById('rf-nacimiento').value;
+  const colegio = document.getElementById('rf-colegio').value.trim();
+  const egreso = document.getElementById('rf-egreso').value.trim();
+  const direccion = document.getElementById('rf-direccion').value.trim();
+  const errEl = document.getElementById('rf-error');
+  errEl.style.display='none';
+
+  if(!nombres||!nacimiento||!colegio||!egreso||!direccion){
+    errEl.textContent='Completa todos los datos adicionales antes de enviar.';
+    errEl.style.display='block'; return;
+  }
+
+  sesionPostulante.registroFinal = true;
+  sesionPostulante.nombres = nombres;
+  sesionPostulante.nacimiento = nacimiento;
+  sesionPostulante.colegio = colegio;
+  sesionPostulante.egreso = egreso;
+  sesionPostulante.direccion = direccion;
+  const dbFin=getDB(); dbFin[sesionPostulante.dni]=sesionPostulante; saveDB(dbFin);
+
+  const box = document.getElementById('modal-box');
+  box.innerHTML = `
+    <div style="text-align:center;padding:2rem 1rem;">
+      <div style="font-size:56px;margin-bottom:1rem;">🎓</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--navy-dark);font-weight:600;margin-bottom:.75rem;">¡Registro completado!</div>
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Tu postulación ha sido enviada al registro oficial de postulantes de la universidad. Recibirás información sobre el examen de admisión en tu correo <strong>${sesionPostulante.correo}</strong>.</p>
+      <div style="background:var(--ivory);border-radius:10px;padding:1rem;font-size:13px;color:var(--text-muted);margin-bottom:1.5rem;text-align:left;">
+        <strong>Código:</strong> ${sesionPostulante.codigo}<br>
+        <strong>Carrera:</strong> ${sesionPostulante.carrera} — ${sesionPostulante.facultad}<br>
+        <strong>Estado:</strong> <span style="color:#16A34A;font-weight:600;">Postulación enviada ✅</span>
+      </div>
+      <button onclick="cerrarModal();actualizarProgreso();" style="background:var(--navy);border:none;border-radius:8px;padding:12px 28px;color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Cerrar</button>
+    </div>
+  `;
+  actualizarProgreso();
 }
 
 // LOGIN
@@ -1473,51 +1853,90 @@ function slug(s){return s.toLowerCase().replace(/[áàä]/g,'a').replace(/[éè�
 
 // FACULTADES
 const FACS=[
-  {n:"Ingeniería",c:"#378ADD",dur:"4 años",img:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1400&auto=format&fit=crop&q=80",carreras:[
-    {n:"Ingeniería Civil",dur:"4 años",grado:"Bachiller en Ingeniería Civil",titulo:"Ingeniero Civil",img:"https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&auto=format&fit=crop&q=80",desc:"Forma profesionales capaces de planificar, diseñar, construir y supervisar infraestructuras y obras civiles. Los egresados desarrollan competencias en estructuras, hidráulica, geotecnia, transportes y gestión de proyectos, contribuyendo al desarrollo sostenible del país.",perfil:"Profesional capaz de planificar, diseñar, construir y gestionar proyectos de infraestructura sostenible. Aplica conocimientos de ingeniería para resolver problemas en estructuras, geotecnia, transportes y recursos hídricos, actuando con ética y responsabilidad social."},
-    {n:"Ingeniería de Sistemas",dur:"4 años",grado:"Bachiller en Ingeniería de Sistemas",titulo:"Ingeniero de Sistemas",img:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&auto=format&fit=crop&q=80",desc:"Forma profesionales capaces de analizar, diseñar e implementar sistemas de información complejos. Los egresados integran conocimientos de software, redes, bases de datos y gestión de TI para impulsar la transformación digital.",perfil:"Analiza, diseña, implementa y gestiona sistemas de información que apoyan la toma de decisiones. Integra tecnologías digitales y análisis de datos para impulsar la transformación digital y la innovación empresarial."},
-    {n:"Ingeniería en IA",dur:"4 años",grado:"Bachiller en Ingeniería en Inteligencia Artificial",titulo:"Ingeniero en Inteligencia Artificial",img:"https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1400&auto=format&fit=crop&q=80",desc:"Carrera de vanguardia orientada al diseño de sistemas inteligentes, machine learning, procesamiento de lenguaje natural y visión por computadora. Los egresados lideran la revolución de la IA.",perfil:"Diseña, desarrolla e implementa sistemas inteligentes capaces de aprender y razonar. Domina técnicas de aprendizaje automático, visión computacional y procesamiento de lenguaje natural, promoviendo el uso ético de la IA."},
-    {n:"Ingeniería Eléctrica",dur:"4 años",grado:"Bachiller en Ingeniería Eléctrica",titulo:"Ingeniero Eléctrico",img:"https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1400&auto=format&fit=crop&q=80",desc:"Especialización en generación, transmisión, distribución y uso eficiente de la energía eléctrica. Enfocada en la transición energética y energías renovables.",perfil:"Diseña y gestiona sistemas eléctricos y de energía. Aplica conocimientos en sistemas de potencia, automatización y energías renovables para la transición energética sostenible."},
+  {n:"Ingeniería",c:"#378ADD",dur:"4–6 años",img:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1400&auto=format&fit=crop&q=80",carreras:[
+    {n:"Ingeniería Civil",dur:"4 años",grado:"Bachiller en Ingeniería Civil",titulo:"Ingeniero Civil",img:"https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&auto=format&fit=crop&q=80",desc:"Forma profesionales capaces de planificar, diseñar, construir y supervisar infraestructuras y obras civiles. Competencias en estructuras, hidráulica, geotecnia, transportes y gestión de proyectos.",perfil:"Planifica, diseña, construye y gestiona proyectos de infraestructura sostenible. Aplica ingeniería en estructuras, geotecnia, transportes y recursos hídricos con ética y responsabilidad social."},
+    {n:"Ingeniería Industrial",dur:"4 años",grado:"Bachiller en Ingeniería Industrial",titulo:"Ingeniero Industrial",img:"https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1400&auto=format&fit=crop&q=80",desc:"Optimiza sistemas productivos integrando personas, materiales, equipos, información y energía. Los egresados mejoran procesos, reducen costos y elevan la calidad en empresas de todos los sectores.",perfil:"Optimiza procesos productivos y sistemas organizacionales. Aplica ingeniería de métodos, gestión de operaciones y análisis cuantitativo para mejorar la eficiencia y competitividad empresarial."},
+    {n:"Ingeniería Mecatrónica",dur:"4 años",grado:"Bachiller en Ingeniería Mecatrónica",titulo:"Ingeniero Mecatrónico",img:"https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1400&auto=format&fit=crop&q=80",desc:"Integra mecánica, electrónica, informática y control automático. Los egresados diseñan robots, sistemas automatizados y productos inteligentes para la industria 4.0.",perfil:"Diseña sistemas mecatrónicos y robóticos integrando mecánica, electrónica y control. Lidera proyectos de automatización industrial e innovación tecnológica con visión multidisciplinaria."},
+    {n:"Ingeniería Eléctrica",dur:"4 años",grado:"Bachiller en Ingeniería Eléctrica",titulo:"Ingeniero Eléctrico",img:"https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1400&auto=format&fit=crop&q=80",desc:"Especialización en generación, transmisión, distribución y uso eficiente de la energía eléctrica. Enfocada en la transición energética y energías renovables.",perfil:"Diseña y gestiona sistemas eléctricos y de energía. Aplica conocimientos en potencia, automatización y energías renovables para la transición energética sostenible."},
+    {n:"Ingeniería Electrónica",dur:"4 años",grado:"Bachiller en Ingeniería Electrónica",titulo:"Ingeniero Electrónico",img:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&auto=format&fit=crop&q=80",desc:"Diseño y desarrollo de circuitos, sistemas embebidos, telecomunicaciones y dispositivos electrónicos. Aplicaciones en industria, salud y comunicaciones.",perfil:"Diseña y desarrolla sistemas electrónicos analógicos y digitales. Integra hardware y software para crear soluciones innovadoras en telecomunicaciones, automatización y sistemas embebidos."},
+    {n:"Ingeniería Mecánica",dur:"4 años",grado:"Bachiller en Ingeniería Mecánica",titulo:"Ingeniero Mecánico",img:"https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=1400&auto=format&fit=crop&q=80",desc:"Diseño, análisis y manufactura de sistemas mecánicos. Termodinámica, mecánica de fluidos, materiales y máquinas térmicas aplicadas a la industria.",perfil:"Diseña, analiza y mantiene sistemas mecánicos y térmicos. Aplica principios de termodinámica, mecánica de fluidos y manufactura para desarrollar soluciones industriales eficientes y sostenibles."},
+    {n:"Ingeniería Química",dur:"4 años",grado:"Bachiller en Ingeniería Química",titulo:"Ingeniero Químico",img:"https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1400&auto=format&fit=crop&q=80",desc:"Diseño y operación de procesos que transforman materias primas en productos industriales. Aplicaciones en petroquímica, alimentos, farmacia y medio ambiente.",perfil:"Diseña y optimiza procesos industriales químicos. Transforma materias primas en productos de valor agregado aplicando principios de transferencia de masa, calor y reacción química con responsabilidad ambiental."},
+    {n:"Ingeniería de Minas",dur:"4 años",grado:"Bachiller en Ingeniería de Minas",titulo:"Ingeniero de Minas",img:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1400&auto=format&fit=crop&q=80",desc:"Exploración, extracción y procesamiento de recursos minerales. Estratégica para el Perú, uno de los mayores productores mundiales de plata, cobre, zinc y oro.",perfil:"Planifica y dirige operaciones mineras con eficiencia, seguridad y sostenibilidad. Gestiona recursos minerales aplicando tecnología de punta para maximizar el valor y minimizar el impacto ambiental."},
+    {n:"Ingeniería Metalúrgica",dur:"4 años",grado:"Bachiller en Ingeniería Metalúrgica",titulo:"Ingeniero Metalurgista",img:"https://images.unsplash.com/photo-1565008576549-57569a49371d?w=1400&auto=format&fit=crop&q=80",desc:"Procesamiento y tratamiento de minerales metálicos. Pirometalurgia, hidrometalurgia y electrometalurgia aplicadas a la industria minero-metalúrgica peruana.",perfil:"Transforma minerales en metales y aleaciones de alto valor. Aplica procesos pirometalúrgicos e hidrometalúrgicos para obtener productos metálicos con calidad, eficiencia y responsabilidad ambiental."},
+    {n:"Ingeniería de Materiales",dur:"4 años",grado:"Bachiller en Ingeniería de Materiales",titulo:"Ingeniero de Materiales",img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400&auto=format&fit=crop&q=80",desc:"Desarrollo y caracterización de materiales avanzados: polímeros, cerámicos, compuestos y nanomateriales. Aplicaciones en aeronáutica, biomédica y electrónica.",perfil:"Diseña y desarrolla materiales con propiedades específicas para aplicaciones de alta tecnología. Combina química, física e ingeniería para crear soluciones innovadoras en manufactura avanzada."},
+    {n:"Ingeniería Agroindustrial",dur:"4 años",grado:"Bachiller en Ingeniería Agroindustrial",titulo:"Ingeniero Agroindustrial",img:"https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1400&auto=format&fit=crop&q=80",desc:"Transformación y procesamiento de productos agropecuarios. Tecnología de alimentos, agronegocios y cadenas de valor en el sector agroexportador peruano.",perfil:"Gestiona procesos de transformación agroindustrial con calidad, inocuidad y sostenibilidad. Agrega valor a la producción agropecuaria peruana con enfoque empresarial e innovación tecnológica."},
+    {n:"Ingeniería Sanitaria",dur:"4 años",grado:"Bachiller en Ingeniería Sanitaria",titulo:"Ingeniero Sanitario",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&auto=format&fit=crop&q=80",desc:"Diseño de sistemas de agua potable, alcantarillado, tratamiento de aguas residuales y gestión de residuos sólidos. Fundamental para el desarrollo urbano sostenible.",perfil:"Diseña y gestiona infraestructura sanitaria y ambiental. Garantiza el acceso a agua segura y el tratamiento adecuado de residuos, contribuyendo a la salud pública y el desarrollo sostenible."},
+    {n:"Ingeniería de Petróleo y Gas",dur:"4 años",grado:"Bachiller en Ingeniería de Petróleo y Gas",titulo:"Ingeniero de Petróleo",img:"https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1400&auto=format&fit=crop&q=80",desc:"Exploración, perforación, extracción y procesamiento de hidrocarburos. Yacimientos, ingeniería de reservorios y transporte de gas y petróleo.",perfil:"Explora, extrae y procesa hidrocarburos de manera eficiente y segura. Aplica ingeniería de reservorios y producción para maximizar la recuperación y minimizar el impacto ambiental."},
+    {n:"Ingeniería Aeronáutica",dur:"5 años",grado:"Bachiller en Ingeniería Aeronáutica",titulo:"Ingeniero Aeronáutico",img:"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1400&auto=format&fit=crop&q=80",desc:"Diseño, construcción y mantenimiento de aeronaves y sistemas aeroespaciales. Aerodinámica, propulsión, estructuras y aviónica.",perfil:"Diseña y desarrolla aeronaves y sistemas aeroespaciales con alto rigor técnico. Aplica aerodinámica, propulsión y aviónica para innovar en el transporte aéreo y la exploración espacial."},
+    {n:"Ingeniería Naval",dur:"5 años",grado:"Bachiller en Ingeniería Naval",titulo:"Ingeniero Naval",img:"https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1400&auto=format&fit=crop&q=80",desc:"Diseño, construcción y mantenimiento de embarcaciones y estructuras offshore. Hidrodinámica naval, arquitectura naval y sistemas marinos.",perfil:"Diseña y construye embarcaciones y plataformas marinas. Aplica hidrodinámica, estructuras navales e ingeniería marina para el transporte marítimo fluvial estratégico del Perú."},
+    {n:"Ingeniería de Telecomunicaciones",dur:"4 años",grado:"Bachiller en Ingeniería de Telecomunicaciones",titulo:"Ingeniero de Telecomunicaciones",img:"https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1400&auto=format&fit=crop&q=80",desc:"Diseño de redes de comunicación, sistemas inalámbricos, fibra óptica, 5G e IoT. Los egresados conectan el Perú con la infraestructura digital del futuro.",perfil:"Diseña, implementa y gestiona redes y sistemas de telecomunicaciones. Integra tecnologías de conectividad para construir la infraestructura digital que impulsa la sociedad del conocimiento."},
+    {n:"Ingeniería Biomédica",dur:"5 años",grado:"Bachiller en Ingeniería Biomédica",titulo:"Ingeniero Biomédico",img:"https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1400&auto=format&fit=crop&q=80",desc:"Aplicación de principios de ingeniería a la medicina y biología. Dispositivos médicos, imagenología, prótesis inteligentes y sistemas de monitoreo clínico.",perfil:"Diseña y desarrolla tecnología médica innovadora. Integra ingeniería y ciencias de la salud para crear dispositivos, sistemas de diagnóstico y soluciones que mejoran la calidad de vida."},
+    {n:"Ingeniería de Energía",dur:"4 años",grado:"Bachiller en Ingeniería de Energía",titulo:"Ingeniero de Energía",img:"https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1400&auto=format&fit=crop&q=80",desc:"Gestión, producción y uso eficiente de energía con enfoque en renovables. Solar, eólica, hidráulica y almacenamiento energético para la transición hacia carbono cero.",perfil:"Diseña sistemas de generación y gestión energética sostenible. Impulsa la transición hacia energías limpias, optimizando el uso de recursos energéticos con criterios técnicos, económicos y ambientales."},
   ]},
   {n:"Computación & Tecnología",c:"#7F77DD",dur:"4 años",img:"https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1400&auto=format&fit=crop&q=80",carreras:[
-    {n:"Cs. de la Computación",dur:"4 años",grado:"Bachiller en Ciencias de la Computación",titulo:"Licenciado en Ciencias de la Computación",img:"https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1400&auto=format&fit=crop&q=80",desc:"Programa riguroso con base matemática y algorítmica sólida. Dominio de teoría de la computación, estructuras de datos, sistemas operativos, redes y desarrollo de software.",perfil:"Desarrolla conocimiento científico en computación, algoritmos e IA. Diseña soluciones innovadoras basadas en software y tecnologías emergentes, contribuyendo a la transformación digital."},
-    {n:"Ciencia de Datos",dur:"4 años",grado:"Bachiller en Ciencia de Datos",titulo:"Científico de Datos",img:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&auto=format&fit=crop&q=80",desc:"Forma especialistas en recolección, análisis e interpretación de grandes volúmenes de datos. Combina estadística, programación y dominio de negocio para guiar decisiones estratégicas.",perfil:"Transforma grandes volúmenes de datos en información estratégica. Utiliza estadística, computación e IA para identificar patrones y resolver problemas complejos en diversos sectores."},
-    {n:"Informática",dur:"4 años",grado:"Bachiller en Informática",titulo:"Licenciado en Informática",img:"https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1400&auto=format&fit=crop&q=80",desc:"Orientada a la aplicación práctica de TI en contextos organizacionales. Los egresados gestionan infraestructura tecnológica y desarrollan soluciones digitales.",perfil:"Desarrolla, implementa y administra soluciones tecnológicas para la gestión eficiente de la información. Competencias en desarrollo de software, ciberseguridad y servicios digitales."},
+    {n:"Ingeniería de Sistemas",dur:"4 años",grado:"Bachiller en Ingeniería de Sistemas",titulo:"Ingeniero de Sistemas",img:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&auto=format&fit=crop&q=80",desc:"Forma profesionales para analizar, diseñar e implementar sistemas de información. Integra software, redes, bases de datos y gestión de TI para la transformación digital.",perfil:"Analiza, diseña e implementa sistemas de información. Integra tecnologías digitales para impulsar la transformación y la innovación empresarial con visión estratégica."},
+    {n:"Ingeniería de Software",dur:"4 años",grado:"Bachiller en Ingeniería de Software",titulo:"Ingeniero de Software",img:"https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1400&auto=format&fit=crop&q=80",desc:"Desarrollo profesional de software con metodologías ágiles, arquitecturas escalables y buenas prácticas de ingeniería. Del diseño al despliegue en producción.",perfil:"Diseña, desarrolla y mantiene software de alta calidad. Aplica metodologías ágiles y patrones de arquitectura para construir sistemas robustos, escalables y orientados al usuario."},
+    {n:"Ciencia de Datos",dur:"4 años",grado:"Bachiller en Ciencia de Datos",titulo:"Científico de Datos",img:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&auto=format&fit=crop&q=80",desc:"Recolección, análisis e interpretación de grandes volúmenes de datos. Estadística, machine learning y visualización para decisiones estratégicas basadas en datos.",perfil:"Transforma datos en conocimiento estratégico. Utiliza estadística, computación e IA para identificar patrones y resolver problemas complejos en distintos sectores productivos."},
+    {n:"Informática",dur:"4 años",grado:"Bachiller en Informática",titulo:"Licenciado en Informática",img:"https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1400&auto=format&fit=crop&q=80",desc:"Aplicación práctica de TI en contextos organizacionales. Gestión de infraestructura tecnológica, desarrollo de soluciones digitales y soporte a la gestión empresarial.",perfil:"Gestiona infraestructura tecnológica y desarrolla soluciones digitales para la gestión eficiente de la información. Competencias en ciberseguridad, redes y servicios digitales."},
+    {n:"Inteligencia Artificial",dur:"4 años",grado:"Bachiller en Inteligencia Artificial",titulo:"Ingeniero en Inteligencia Artificial",img:"https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1400&auto=format&fit=crop&q=80",desc:"Diseño de sistemas inteligentes, machine learning, procesamiento de lenguaje natural y visión por computadora. Liderazgo en la revolución tecnológica de la IA.",perfil:"Diseña sistemas que aprenden y razonan. Domina machine learning, visión computacional y NLP para crear soluciones de IA con impacto real en industria, salud y sociedad."},
+    {n:"Ciberseguridad",dur:"4 años",grado:"Bachiller en Ciberseguridad",titulo:"Ingeniero en Ciberseguridad",img:"https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1400&auto=format&fit=crop&q=80",desc:"Protección de sistemas, redes y datos frente a ataques informáticos. Ethical hacking, criptografía, gestión de riesgos y respuesta ante incidentes.",perfil:"Protege la infraestructura digital frente a ciberamenazas. Diseña arquitecturas de seguridad, realiza auditorías y gestiona incidentes con ética profesional y visión estratégica."},
   ]},
   {n:"Ciencias de la Salud",c:"#1D9E75",dur:"4–6 años",img:"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1400&auto=format&fit=crop&q=80",carreras:[
-    {n:"Medicina Humana",dur:"6 años",grado:"Bachiller en Medicina",titulo:"Médico Cirujano",img:"https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1400&auto=format&fit=crop&q=80",desc:"Forma médicos con sólida base científica, habilidades clínicas y compromiso humanístico. Seis años con formación básica, clínica e internado hospitalario.",perfil:"Médico íntegro, humanista y científicamente competente, capaz de prevenir, diagnosticar, tratar y rehabilitar problemas de salud, actuando con ética y compromiso social."},
-    {n:"Enfermería",dur:"4 años",grado:"Bachiller en Enfermería",titulo:"Licenciado en Enfermería",img:"https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1400&auto=format&fit=crop&q=80",desc:"Forma enfermeros con competencias científicas, técnicas y humanísticas para el cuidado integral de la persona y la comunidad.",perfil:"Brinda cuidados integrales de salud actuando con vocación de servicio, liderazgo, ética y evidencia científica, promoviendo la prevención y recuperación de la salud."},
-    {n:"Nutrición",dur:"4 años",grado:"Bachiller en Nutrición y Dietética",titulo:"Licenciado en Nutrición y Dietética",img:"https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1400&auto=format&fit=crop&q=80",desc:"Forma profesionales que promueven la salud a través de la alimentación. Los egresados diseñan planes nutricionales y trabajan en clínicas, empresas y salud pública.",perfil:"Evalúa, diseña e implementa estrategias alimentarias para promover la salud y prevenir enfermedades, sustentadas en evidencia científica y responsabilidad social."},
+    {n:"Medicina Humana",dur:"6 años",grado:"Bachiller en Medicina",titulo:"Médico Cirujano",img:"https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1400&auto=format&fit=crop&q=80",desc:"Formación médica integral con sólida base científica, habilidades clínicas y compromiso humanístico. Seis años con etapas básica, clínica e internado hospitalario.",perfil:"Médico íntegro y científicamente competente, capaz de prevenir, diagnosticar, tratar y rehabilitar problemas de salud con ética y compromiso social."},
+    {n:"Estomatología / Odontología",dur:"5 años",grado:"Bachiller en Estomatología",titulo:"Cirujano Dentista",img:"https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=1400&auto=format&fit=crop&q=80",desc:"Diagnóstico, tratamiento y prevención de enfermedades bucales y maxilofaciales. Odontología general, ortodoncia, endodoncia, periodoncia e implantología.",perfil:"Diagnostica y trata patologías bucodentales con destreza clínica y humanismo. Promueve la salud oral de la población con ética, innovación y responsabilidad social."},
+    {n:"Farmacia y Bioquímica",dur:"5 años",grado:"Bachiller en Farmacia y Bioquímica",titulo:"Químico Farmacéutico",img:"https://images.unsplash.com/photo-1576671081837-49000212a370?w=1400&auto=format&fit=crop&q=80",desc:"Desarrollo, producción y control de medicamentos. Farmacología, bioquímica clínica, toxicología y atención farmacéutica en hospitales y la industria.",perfil:"Garantiza el uso seguro, eficaz y racional del medicamento. Contribuye al desarrollo farmacéutico, la atención al paciente y el control de calidad con rigor científico y ética profesional."},
+    {n:"Enfermería",dur:"4 años",grado:"Bachiller en Enfermería",titulo:"Licenciado en Enfermería",img:"https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1400&auto=format&fit=crop&q=80",desc:"Cuidado integral de la persona y la comunidad. Competencias científicas, técnicas y humanísticas para la prevención, recuperación y rehabilitación de la salud.",perfil:"Brinda cuidados integrales con vocación de servicio, liderazgo, ética y evidencia científica. Promueve la prevención y recuperación de la salud en distintos contextos clínicos."},
+    {n:"Obstetricia",dur:"4 años",grado:"Bachiller en Obstetricia",titulo:"Licenciado en Obstetricia",img:"https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=1400&auto=format&fit=crop&q=80",desc:"Atención integral de la salud sexual y reproductiva. Control prenatal, atención del parto, puerperio y planificación familiar con enfoque intercultural.",perfil:"Brinda atención obstétrica integral centrada en la mujer, el recién nacido y la familia. Promueve la salud reproductiva con enfoque de género, interculturalidad y evidencia científica."},
+    {n:"Nutrición y Dietética",dur:"4 años",grado:"Bachiller en Nutrición y Dietética",titulo:"Licenciado en Nutrición y Dietética",img:"https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1400&auto=format&fit=crop&q=80",desc:"Promoción de la salud a través de la alimentación. Planes nutricionales para clínicas, empresas y salud pública en el Perú.",perfil:"Evalúa, diseña e implementa estrategias alimentarias para promover la salud y prevenir enfermedades, con base en evidencia científica y responsabilidad social."},
+    {n:"Tecnología Médica — Laboratorio Clínico",dur:"4 años",grado:"Bachiller en Tecnología Médica",titulo:"Licenciado en Tecnología Médica",img:"https://images.unsplash.com/photo-1576086213369-97a306d36557?w=1400&auto=format&fit=crop&q=80",desc:"Análisis clínicos, hematología, microbiología, bioquímica clínica e inmunología. Diagnóstico de laboratorio fundamental para la medicina moderna.",perfil:"Realiza análisis de laboratorio clínico con precisión y rigor científico. Contribuye al diagnóstico, tratamiento y prevención de enfermedades mediante el uso de tecnología biomédica avanzada."},
+    {n:"Tecnología Médica — Terapia Física",dur:"4 años",grado:"Bachiller en Tecnología Médica",titulo:"Licenciado en Terapia Física y Rehabilitación",img:"https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400&auto=format&fit=crop&q=80",desc:"Rehabilitación funcional de pacientes con discapacidad motora. Fisioterapia, electroterapia, hidroterapia y terapia ocupacional.",perfil:"Evalúa y trata disfunciones del movimiento humano. Diseña programas de rehabilitación física integrales para restablecer la funcionalidad y mejorar la calidad de vida del paciente."},
+    {n:"Tecnología Médica — Radiología",dur:"4 años",grado:"Bachiller en Tecnología Médica",titulo:"Licenciado en Radiología",img:"https://images.unsplash.com/photo-1559757175-5700dde675bc?w=1400&auto=format&fit=crop&q=80",desc:"Diagnóstico por imágenes. Radiografía, tomografía, resonancia magnética, ecografía y medicina nuclear. Fundamental para el diagnóstico médico moderno.",perfil:"Opera equipos de diagnóstico por imagen con precisión técnica y responsabilidad. Contribuye al diagnóstico oportuno y al tratamiento efectivo de enfermedades con criterio clínico."},
+    {n:"Optometría",dur:"4 años",grado:"Bachiller en Optometría",titulo:"Licenciado en Optometría",img:"https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?w=1400&auto=format&fit=crop&q=80",desc:"Evaluación, diagnóstico y tratamiento de defectos visuales y enfermedades del ojo. Adaptación de lentes, terapia visual y salud ocular preventiva.",perfil:"Evalúa la función visual y prescribe correcciones ópticas. Detecta y maneja alteraciones visuales contribuyendo a la salud ocular de la comunidad con ética y rigor clínico."},
   ]},
   {n:"Economía & Negocios",c:"#D85A30",dur:"4 años",img:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1400&auto=format&fit=crop&q=80",carreras:[
-    {n:"Economía",dur:"4 años",grado:"Bachiller en Economía",titulo:"Economista",img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&auto=format&fit=crop&q=80",desc:"Sólida base en teoría económica, econometría y política pública. Los economistas analizan mercados, diseñan políticas y contribuyen a la toma de decisiones.",perfil:"Profesional con formación analítica y cuantitativa, capaz de evaluar y proponer soluciones a problemas económicos, actuando con ética y responsabilidad ciudadana."},
-    {n:"Administración",dur:"4 años",grado:"Bachiller en Administración de Empresas",titulo:"Licenciado en Administración",img:"https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1400&auto=format&fit=crop&q=80",desc:"Forma líderes empresariales con visión estratégica, habilidades gerenciales y ética profesional. Los egresados gestionan organizaciones de todo tamaño.",perfil:"Líder capaz de dirigir organizaciones en entornos dinámicos. Diseña estrategias que promueven la eficiencia, innovación y sostenibilidad con visión estratégica y compromiso ético."},
-    {n:"Finanzas",dur:"4 años",grado:"Bachiller en Finanzas",titulo:"Licenciado en Finanzas",img:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1400&auto=format&fit=crop&q=80",desc:"Especializada en gestión de inversiones, mercados de capitales, valoración de empresas y riesgo financiero. Los egresados trabajan en banca, fondos y fintech.",perfil:"Gestiona recursos financieros, evalúa inversiones y administra riesgos. Utiliza herramientas cuantitativas para optimizar decisiones financieras con ética y transparencia."},
-    {n:"Marketing",dur:"4 años",grado:"Bachiller en Marketing",titulo:"Licenciado en Marketing",img:"https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=1400&auto=format&fit=crop&q=80",desc:"Forma profesionales en estrategia de marca, comportamiento del consumidor y marketing digital.",perfil:"Diseña, implementa y evalúa estrategias de marketing, comprende el comportamiento del consumidor y utiliza herramientas de análisis con creatividad y responsabilidad ética."},
-    {n:"Contabilidad",dur:"4 años",grado:"Bachiller en Contabilidad",titulo:"Contador Público Colegiado",img:"https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&auto=format&fit=crop&q=80",desc:"Forma profesionales en registro, análisis e interpretación de información financiera. Los contadores dominan contabilidad, tributación, auditoría y normas NIIF.",perfil:"Competente en gestión, análisis y control de información financiera. Aplica normas contables y tributarias para garantizar la transparencia y sostenibilidad de las organizaciones."},
+    {n:"Economía",dur:"4 años",grado:"Bachiller en Economía",titulo:"Economista",img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&auto=format&fit=crop&q=80",desc:"Sólida base en teoría económica, econometría y política pública. Los economistas analizan mercados, diseñan políticas y contribuyen a la toma de decisiones.",perfil:"Analiza y propone soluciones a problemas económicos con rigor cuantitativo, ética y responsabilidad ciudadana."},
+    {n:"Administración de Empresas",dur:"4 años",grado:"Bachiller en Administración de Empresas",titulo:"Licenciado en Administración",img:"https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1400&auto=format&fit=crop&q=80",desc:"Forma líderes empresariales con visión estratégica, habilidades gerenciales y ética profesional para gestionar organizaciones de todo tamaño.",perfil:"Dirige organizaciones en entornos dinámicos diseñando estrategias de eficiencia, innovación y sostenibilidad con compromiso ético."},
+    {n:"Negocios Internacionales",dur:"4 años",grado:"Bachiller en Negocios Internacionales",titulo:"Licenciado en Negocios Internacionales",img:"https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1400&auto=format&fit=crop&q=80",desc:"Comercio exterior, logística internacional, tratados de libre comercio y gestión de empresas globales. Fundamental para el Perú exportador.",perfil:"Gestiona operaciones comerciales internacionales. Analiza mercados globales, negocia acuerdos y diseña estrategias de internacionalización con ética y visión multicultural."},
+    {n:"Finanzas",dur:"4 años",grado:"Bachiller en Finanzas",titulo:"Licenciado en Finanzas",img:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1400&auto=format&fit=crop&q=80",desc:"Gestión de inversiones, mercados de capitales, valoración de empresas y riesgo financiero. Los egresados trabajan en banca, fondos y fintech.",perfil:"Gestiona recursos financieros y evalúa inversiones. Optimiza decisiones financieras con herramientas cuantitativas, ética y transparencia."},
+    {n:"Marketing",dur:"4 años",grado:"Bachiller en Marketing",titulo:"Licenciado en Marketing",img:"https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=1400&auto=format&fit=crop&q=80",desc:"Estrategia de marca, comportamiento del consumidor y marketing digital. Los egresados conectan productos y servicios con sus mercados objetivo.",perfil:"Diseña estrategias de marketing con creatividad y análisis de datos, comprendiendo al consumidor y actuando con responsabilidad ética."},
+    {n:"Contabilidad",dur:"4 años",grado:"Bachiller en Contabilidad",titulo:"Contador Público Colegiado",img:"https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&auto=format&fit=crop&q=80",desc:"Registro, análisis e interpretación de información financiera. Contabilidad, tributación, auditoría y normas NIIF para la gestión transparente de organizaciones.",perfil:"Gestiona información financiera con rigor. Aplica normas contables y tributarias para garantizar la transparencia y sostenibilidad de las organizaciones."},
+    {n:"Emprendimiento e Innovación",dur:"4 años",grado:"Bachiller en Emprendimiento",titulo:"Licenciado en Emprendimiento e Innovación",img:"https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1400&auto=format&fit=crop&q=80",desc:"Creación y gestión de startups y proyectos innovadores. Design thinking, lean startup, venture capital y ecosistemas de innovación.",perfil:"Crea y lidera proyectos empresariales innovadores. Identifica oportunidades, diseña modelos de negocio y gestiona recursos para generar valor social y económico sostenible."},
   ]},
   {n:"Derecho & RR.II.",c:"#E24B4A",dur:"4 años",img:"https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1400&auto=format&fit=crop&q=80",carreras:[
-    {n:"Derecho",dur:"4 años",grado:"Bachiller en Derecho",titulo:"Abogado",img:"https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1400&auto=format&fit=crop&q=80",desc:"Forma juristas con pensamiento crítico, sólida base doctrinal y habilidades de argumentación. Los egresados ejercen en litigación, asesoría y arbitraje.",perfil:"Jurista con formación jurídica, humanística y ética, capaz de interpretar y aplicar el ordenamiento jurídico para la solución de conflictos y la promoción de la justicia."},
-    {n:"Relaciones Internacionales",dur:"4 años",grado:"Bachiller en Relaciones Internacionales",titulo:"Licenciado en Relaciones Internacionales",img:"https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1400&auto=format&fit=crop&q=80",desc:"Forma especialistas en política exterior, diplomacia, derecho internacional y cooperación global.",perfil:"Profesional con visión global capaz de analizar escenarios internacionales y diseñar estrategias de cooperación, actuando con ética y compromiso con los derechos humanos."},
+    {n:"Derecho",dur:"4 años",grado:"Bachiller en Derecho",titulo:"Abogado",img:"https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1400&auto=format&fit=crop&q=80",desc:"Forma juristas con pensamiento crítico, sólida base doctrinal y habilidades de argumentación. Los egresados ejercen en litigación, asesoría y arbitraje.",perfil:"Jurista con formación jurídica, humanística y ética para interpretar el ordenamiento jurídico y promover la justicia."},
+    {n:"Relaciones Internacionales",dur:"4 años",grado:"Bachiller en Relaciones Internacionales",titulo:"Licenciado en Relaciones Internacionales",img:"https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1400&auto=format&fit=crop&q=80",desc:"Política exterior, diplomacia, derecho internacional y cooperación global. Los egresados trabajan en cancillería, organismos internacionales y ONG.",perfil:"Analiza escenarios internacionales y diseña estrategias de cooperación con ética y compromiso con los derechos humanos."},
+    {n:"Ciencia Política",dur:"4 años",grado:"Bachiller en Ciencia Política",titulo:"Licenciado en Ciencia Política",img:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&auto=format&fit=crop&q=80",desc:"Análisis del poder político, instituciones, partidos, elecciones y políticas públicas. Los egresados trabajan en gobierno, think tanks y organismos internacionales.",perfil:"Analiza sistemas políticos y propone soluciones de política pública con rigor académico, pensamiento crítico y compromiso democrático."},
   ]},
   {n:"Ciencias Básicas",c:"#EF9F27",dur:"4 años",img:"https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=1400&auto=format&fit=crop&q=80",carreras:[
-    {n:"Matemática",dur:"4 años",grado:"Bachiller en Matemáticas",titulo:"Licenciado en Matemáticas",img:"https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1400&auto=format&fit=crop&q=80",desc:"Formación rigurosa en álgebra, análisis, probabilidad y matemática aplicada. Base para investigación, finanzas, criptografía e inteligencia artificial.",perfil:"Sólida formación teórica y aplicada para modelar y resolver problemas complejos mediante razonamiento lógico, contribuyendo a la investigación e innovación."},
-    {n:"Física",dur:"4 años",grado:"Bachiller en Física",titulo:"Licenciado en Física",img:"https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1400&auto=format&fit=crop&q=80",desc:"Explora los principios fundamentales que gobiernan el universo, desde la mecánica cuántica hasta la cosmología.",perfil:"Comprende los principios fundamentales de la naturaleza y aplica métodos científicos para investigar, modelar y resolver problemas complejos con rigor y pensamiento crítico."},
-    {n:"Biología",dur:"4 años",grado:"Bachiller en Biología",titulo:"Biólogo",img:"https://images.unsplash.com/photo-1518152006812-edab29b069ac?w=1400&auto=format&fit=crop&q=80",desc:"Estudia los seres vivos desde la biología molecular hasta la ecología. Con la megabiodiversidad peruana como laboratorio.",perfil:"Estudia los sistemas vivos contribuyendo a la conservación de la biodiversidad, la salud y el desarrollo sostenible con metodologías científicas avanzadas."},
+    {n:"Matemática",dur:"4 años",grado:"Bachiller en Matemáticas",titulo:"Licenciado en Matemáticas",img:"https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1400&auto=format&fit=crop&q=80",desc:"Álgebra, análisis, probabilidad y matemática aplicada. Base para investigación, finanzas, criptografía e inteligencia artificial.",perfil:"Modela y resuelve problemas complejos con razonamiento lógico y rigor matemático, contribuyendo a la investigación e innovación."},
+    {n:"Estadística",dur:"4 años",grado:"Bachiller en Estadística",titulo:"Licenciado en Estadística",img:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&auto=format&fit=crop&q=80",desc:"Diseño de experimentos, inferencia estadística, modelos predictivos y análisis de datos. Fundamental para ciencia, industria y políticas públicas.",perfil:"Diseña estudios, analiza datos e interpreta resultados con rigor estadístico. Apoya la toma de decisiones en salud, industria, gobierno e investigación científica."},
+    {n:"Física",dur:"4 años",grado:"Bachiller en Física",titulo:"Licenciado en Física",img:"https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1400&auto=format&fit=crop&q=80",desc:"Principios fundamentales que gobiernan el universo. Mecánica cuántica, relatividad, física del estado sólido y cosmología.",perfil:"Comprende los principios fundamentales de la naturaleza. Aplica métodos científicos para investigar, modelar y resolver problemas complejos con rigor y pensamiento crítico."},
+    {n:"Química",dur:"4 años",grado:"Bachiller en Química",titulo:"Licenciado en Química",img:"https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1400&auto=format&fit=crop&q=80",desc:"Estudio de la materia, sus propiedades y transformaciones. Química orgánica, inorgánica, analítica y fisicoquímica con aplicaciones industriales.",perfil:"Investiga y aplica principios químicos para desarrollar materiales, medicamentos y procesos industriales con rigor científico y responsabilidad ambiental."},
+    {n:"Biología",dur:"4 años",grado:"Bachiller en Biología",titulo:"Biólogo",img:"https://images.unsplash.com/photo-1518152006812-edab29b069ac?w=1400&auto=format&fit=crop&q=80",desc:"Seres vivos desde la biología molecular hasta la ecología. Con la megabiodiversidad peruana como laboratorio natural.",perfil:"Estudia sistemas vivos y contribuye a la conservación de la biodiversidad, la salud y el desarrollo sostenible con metodología científica avanzada."},
+    {n:"Bioquímica",dur:"4 años",grado:"Bachiller en Bioquímica",titulo:"Licenciado en Bioquímica",img:"https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1400&auto=format&fit=crop&q=80",desc:"Procesos químicos que ocurren en los seres vivos. Metabolismo, enzimología, biología molecular y sus aplicaciones en biotecnología y medicina.",perfil:"Investiga los fundamentos químicos de la vida. Aplica conocimientos de biología molecular y metabolismo para desarrollar soluciones en salud, alimentación y biotecnología."},
+    {n:"Genética y Biotecnología",dur:"4 años",grado:"Bachiller en Genética y Biotecnología",titulo:"Licenciado en Genética y Biotecnología",img:"https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=1400&auto=format&fit=crop&q=80",desc:"Ingeniería genética, CRISPR, bioinformática y aplicaciones biotecnológicas en salud, agroindustria y medio ambiente.",perfil:"Aplica tecnología genómica para desarrollar soluciones biotecnológicas. Trabaja en medicina personalizada, mejoramiento genético y biorremediación con ética y responsabilidad."},
   ]},
   {n:"Cs. Sociales & Humanidades",c:"#D4537E",dur:"4 años",img:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&auto=format&fit=crop&q=80",carreras:[
-    {n:"Psicología",dur:"4 años",grado:"Bachiller en Psicología",titulo:"Licenciado en Psicología",img:"https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1400&auto=format&fit=crop&q=80",desc:"Estudia el comportamiento humano y los procesos mentales. Los egresados se especializan en psicología clínica, organizacional y neuropsicología.",perfil:"Comprende científicamente el comportamiento humano y evalúa, diagnostica e interviene en distintos contextos con ética, empatía y rigor científico."},
-    {n:"Sociología",dur:"4 años",grado:"Bachiller en Sociología",titulo:"Sociólogo",img:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&auto=format&fit=crop&q=80",desc:"Analiza la estructura y dinámica de las sociedades. Los egresados trabajan en políticas públicas, desarrollo social y organismos internacionales.",perfil:"Analiza las dinámicas sociales para comprender problemáticas y generar propuestas de desarrollo sostenible, inclusión y justicia social."},
-    {n:"Pedagogía",dur:"4 años",grado:"Bachiller en Educación",titulo:"Licenciado en Educación",img:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1400&auto=format&fit=crop&q=80",desc:"Forma educadores con dominio de pedagogía, didáctica y gestión educativa. Los egresados lideran procesos de transformación del sistema educativo.",perfil:"Educador capaz de diseñar y gestionar procesos de enseñanza innovadores e inclusivos, promoviendo el desarrollo integral con ética y compromiso social."},
-    {n:"Historia",dur:"4 años",grado:"Bachiller en Historia",titulo:"Licenciado en Historia",img:"https://images.unsplash.com/photo-1461360228754-6e81c478b882?w=1400&auto=format&fit=crop&q=80",desc:"Estudia el pasado humano para comprender el presente y orientar el futuro. Los egresados trabajan en investigación, docencia, museos, archivos y patrimonio cultural.",perfil:"Investiga y analiza procesos históricos con pensamiento crítico, contribuyendo a la preservación del patrimonio cultural y la comprensión de la identidad colectiva."},
+    {n:"Psicología",dur:"4 años",grado:"Bachiller en Psicología",titulo:"Licenciado en Psicología",img:"https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1400&auto=format&fit=crop&q=80",desc:"Comportamiento humano y procesos mentales. Especialización en psicología clínica, organizacional y neuropsicología.",perfil:"Comprende el comportamiento humano y evalúa, diagnostica e interviene con ética, empatía y rigor científico."},
+    {n:"Sociología",dur:"4 años",grado:"Bachiller en Sociología",titulo:"Sociólogo",img:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&auto=format&fit=crop&q=80",desc:"Estructura y dinámica de las sociedades. Los egresados trabajan en políticas públicas, desarrollo social y organismos internacionales.",perfil:"Analiza dinámicas sociales para comprender problemáticas y proponer soluciones de desarrollo sostenible, inclusión y justicia social."},
+    {n:"Comunicación Social",dur:"4 años",grado:"Bachiller en Comunicación Social",titulo:"Licenciado en Comunicación Social",img:"https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1400&auto=format&fit=crop&q=80",desc:"Comunicación estratégica, medios digitales, relaciones públicas y producción audiovisual. Los egresados lideran la comunicación institucional y periodística.",perfil:"Diseña estrategias comunicacionales y produce contenidos para distintos medios y audiencias con creatividad, ética y responsabilidad social."},
+    {n:"Periodismo",dur:"4 años",grado:"Bachiller en Periodismo",titulo:"Licenciado en Periodismo",img:"https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1400&auto=format&fit=crop&q=80",desc:"Investigación periodística, periodismo digital, reportaje y verificación de información. Periodismo comprometido con la verdad y la democracia.",perfil:"Investiga, redacta y difunde información veraz y oportuna. Ejerce el periodismo con rigor, ética y compromiso con el derecho ciudadano a la información."},
+    {n:"Pedagogía",dur:"4 años",grado:"Bachiller en Educación",titulo:"Licenciado en Educación",img:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1400&auto=format&fit=crop&q=80",desc:"Pedagogía, didáctica y gestión educativa. Los egresados lideran procesos de transformación del sistema educativo peruano.",perfil:"Diseña y gestiona procesos de enseñanza innovadores e inclusivos, promoviendo el desarrollo integral con ética y compromiso social."},
+    {n:"Lingüística",dur:"4 años",grado:"Bachiller en Lingüística",titulo:"Licenciado en Lingüística",img:"https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1400&auto=format&fit=crop&q=80",desc:"Estudio científico del lenguaje. Fonología, morfología, sintaxis, semántica y lenguas originarias del Perú. Aplicaciones en traducción, enseñanza y tecnología del lenguaje.",perfil:"Analiza las estructuras del lenguaje y sus variaciones. Contribuye a la preservación de lenguas originarias, la enseñanza de idiomas y el procesamiento del lenguaje natural."},
+    {n:"Historia",dur:"4 años",grado:"Bachiller en Historia",titulo:"Licenciado en Historia",img:"https://images.unsplash.com/photo-1461360228754-6e81c478b882?w=1400&auto=format&fit=crop&q=80",desc:"Pasado humano para comprender el presente. Investigación, docencia, museos, archivos y patrimonio cultural.",perfil:"Investiga procesos históricos con pensamiento crítico, contribuyendo a la preservación del patrimonio cultural y la comprensión de la identidad colectiva."},
+    {n:"Filosofía",dur:"4 años",grado:"Bachiller en Filosofía",titulo:"Licenciado en Filosofía",img:"https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1400&auto=format&fit=crop&q=80",desc:"Pensamiento crítico, ética, lógica, filosofía política y epistemología. Los egresados contribuyen a la ética empresarial, bioética y pensamiento estratégico.",perfil:"Desarrolla pensamiento crítico y argumentación rigurosa. Contribuye a la reflexión ética y filosófica en distintos ámbitos profesionales con honestidad intelectual."},
+    {n:"Antropología",dur:"4 años",grado:"Bachiller en Antropología",titulo:"Licenciado en Antropología",img:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&auto=format&fit=crop&q=80",desc:"Diversidad cultural, comunidades indígenas, patrimonio y desarrollo sostenible. La megadiversidad cultural del Perú como laboratorio único.",perfil:"Estudia la diversidad cultural humana con rigor y respeto. Contribuye al diálogo intercultural, la preservación del patrimonio y el desarrollo sostenible de las comunidades."},
   ]},
   {n:"Arquitectura & Urbanismo",c:"#888780",dur:"4 años",img:"https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1400&auto=format&fit=crop&q=80",carreras:[
-    {n:"Arquitectura",dur:"4 años",grado:"Bachiller en Arquitectura",titulo:"Arquitecto",img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&auto=format&fit=crop&q=80",desc:"Forma profesionales en el diseño, planificación y construcción de espacios habitables. Los egresados proyectan edificios y espacios públicos que responden a las necesidades humanas.",perfil:"Diseña espacios y edificaciones funcionales, estéticas y sostenibles, integrando creatividad y técnica para mejorar la calidad de vida y el entorno construido."},
-    {n:"Urbanismo",dur:"4 años",grado:"Bachiller en Urbanismo",titulo:"Urbanista",img:"https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1400&auto=format&fit=crop&q=80",desc:"Planificación y gestión del territorio urbano. Diseño de políticas de desarrollo urbano, movilidad y sostenibilidad.",perfil:"Planifica y gestiona ciudades y territorios con enfoque sostenible e inclusivo, formulando estrategias para el desarrollo equilibrado y la mejora de la calidad de vida."},
+    {n:"Arquitectura",dur:"4 años",grado:"Bachiller en Arquitectura",titulo:"Arquitecto",img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&auto=format&fit=crop&q=80",desc:"Diseño, planificación y construcción de espacios habitables. Los egresados proyectan edificios y espacios públicos que responden a las necesidades humanas.",perfil:"Diseña espacios y edificaciones funcionales, estéticas y sostenibles, integrando creatividad y técnica para mejorar el entorno construido."},
+    {n:"Urbanismo y Ordenamiento Territorial",dur:"4 años",grado:"Bachiller en Urbanismo",titulo:"Urbanista",img:"https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1400&auto=format&fit=crop&q=80",desc:"Planificación y gestión del territorio urbano. Diseño de políticas de desarrollo urbano, movilidad y sostenibilidad para ciudades más humanas.",perfil:"Planifica ciudades y territorios con enfoque sostenible e inclusivo, formulando estrategias para el desarrollo equilibrado y la mejora de la calidad de vida."},
+    {n:"Diseño de Interiores",dur:"4 años",grado:"Bachiller en Diseño de Interiores",titulo:"Diseñador de Interiores",img:"https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1400&auto=format&fit=crop&q=80",desc:"Diseño y acondicionamiento de espacios interiores residenciales, comerciales e institucionales. Iluminación, materiales, ergonomía y estética.",perfil:"Crea espacios interiores funcionales, estéticos y confortables. Integra diseño, arquitectura y psicología ambiental para mejorar la experiencia de habitar y trabajar."},
   ]},
   {n:"Ciencias Ambientales",c:"#2A9B5F",dur:"4 años",img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&auto=format&fit=crop&q=80",carreras:[
-    {n:"Ingeniería Ambiental",dur:"4 años",grado:"Bachiller en Ingeniería Ambiental",titulo:"Ingeniero Ambiental",img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&auto=format&fit=crop&q=80",desc:"Forma profesionales para gestionar, prevenir y solucionar problemas ambientales. Estratégica para el Perú, país megadiverso y con alta actividad minera y agroindustrial.",perfil:"Gestiona y soluciona problemas ambientales aplicando conocimientos científicos y tecnológicos para promover el desarrollo sostenible y la protección del medio ambiente."},
-    {n:"Geología",dur:"4 años",grado:"Bachiller en Geología",titulo:"Geólogo",img:"https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=1400&auto=format&fit=crop&q=80",desc:"Estudia la estructura, composición e historia de la Tierra. Estratégica para el Perú minero, con aplicaciones en exploración, riesgos y gestión del agua.",perfil:"Investiga la composición y evolución de la Tierra para gestionar recursos naturales, evaluar riesgos geológicos y contribuir al desarrollo sostenible."},
+    {n:"Ingeniería Ambiental",dur:"4 años",grado:"Bachiller en Ingeniería Ambiental",titulo:"Ingeniero Ambiental",img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&auto=format&fit=crop&q=80",desc:"Gestión, prevención y solución de problemas ambientales. Estratégica para el Perú, país megadiverso con alta actividad minera y agroindustrial.",perfil:"Gestiona y soluciona problemas ambientales aplicando ciencia y tecnología para el desarrollo sostenible y la protección del medio ambiente."},
+    {n:"Geología",dur:"4 años",grado:"Bachiller en Geología",titulo:"Geólogo",img:"https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=1400&auto=format&fit=crop&q=80",desc:"Estructura, composición e historia de la Tierra. Estratégica para el Perú minero, con aplicaciones en exploración, riesgos y gestión del agua.",perfil:"Investiga la composición y evolución de la Tierra para gestionar recursos naturales y evaluar riesgos geológicos con responsabilidad."},
+    {n:"Ecología",dur:"4 años",grado:"Bachiller en Ecología",titulo:"Licenciado en Ecología",img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&auto=format&fit=crop&q=80",desc:"Estudio de los ecosistemas, biodiversidad y relaciones entre organismos y su entorno. El Perú, con 12 ecorregiones, es un laboratorio ecológico único.",perfil:"Estudia y conserva ecosistemas. Genera conocimiento sobre la biodiversidad peruana y propone estrategias de conservación y uso sostenible de los recursos naturales."},
+    {n:"Gestión de Recursos Hídricos",dur:"4 años",grado:"Bachiller en Gestión de Recursos Hídricos",titulo:"Licenciado en Gestión de Recursos Hídricos",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&auto=format&fit=crop&q=80",desc:"Planificación, uso eficiente y conservación del agua. Cuencas hidrográficas, riego, agua potable y cambio climático en el contexto peruano.",perfil:"Gestiona el agua como recurso estratégico. Diseña soluciones para el uso eficiente, la conservación y la gobernanza del recurso hídrico en contextos de cambio climático."},
   ]},
 ];
 
