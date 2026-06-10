@@ -1,1 +1,1 @@
-# data-core
+# universidad-rimac
